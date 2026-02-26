@@ -1,0 +1,258 @@
+/* src/styles/global.css */
+@import "tailwindcss";
+
+/* ============================================
+   TODOCASA CONSTRUCCIONES — Design Tokens
+   Paleta derivada del logo: tonos madera,
+   marrón cálido, ámbar dorado + acero.
+   ============================================ */
+
+@theme {
+  /* --- Colores primarios (marrón madera) --- */
+  --color-primary-50: #faf6f1;
+  --color-primary-100: #f0e6d8;
+  --color-primary-200: #e0cbb0;
+  --color-primary-300: #cba67e;
+  --color-primary-400: #b5834f;
+  --color-primary-500: #8B5E34;
+  --color-primary-600: #6B3A2A;
+  --color-primary-700: #5D3220;
+  --color-primary-800: #4A2718;
+  --color-primary-900: #3C1F12;
+  --color-primary-950: #2C1810;
+
+  /* --- Colores acento (ámbar dorado) --- */
+  --color-accent-50: #fefbf3;
+  --color-accent-100: #fdf3dc;
+  --color-accent-200: #fae4b4;
+  --color-accent-300: #f5cf7f;
+  --color-accent-400: #e8b44e;
+  --color-accent-500: #C8944A;
+  --color-accent-600: #A87A3A;
+  --color-accent-700: #8A6230;
+  --color-accent-800: #6E4E28;
+  --color-accent-900: #5A4022;
+
+  /* --- Colores acero (estructuras metálicas) --- */
+  --color-steel-50: #f8f9fa;
+  --color-steel-100: #eceef1;
+  --color-steel-200: #d5dae0;
+  --color-steel-300: #b0b9c4;
+  --color-steel-400: #8591a0;
+  --color-steel-500: #64707E;
+  --color-steel-600: #4F5966;
+  --color-steel-700: #414952;
+  --color-steel-800: #383E45;
+  --color-steel-900: #2D3238;
+  --color-steel-950: #1a1d21;
+
+  /* --- Superficies & neutrales --- */
+  --color-surface-50: #FDFBF9;
+  --color-surface-100: #F7F3EF;
+  --color-surface-200: #EDE6DE;
+  --color-surface-300: #DDD3C7;
+  --color-surface-800: #2A2320;
+  --color-surface-900: #1E1916;
+  --color-surface-950: #141110;
+
+  /* --- Tipografía --- */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  /* --- Sombras personalizadas --- */
+  --shadow-soft: 0 2px 15px -3px rgba(107, 58, 42, 0.08), 0 4px 6px -4px rgba(107, 58, 42, 0.05);
+  --shadow-card: 0 4px 25px -5px rgba(107, 58, 42, 0.1), 0 8px 10px -6px rgba(107, 58, 42, 0.06);
+  --shadow-elevated: 0 10px 40px -10px rgba(107, 58, 42, 0.15), 0 20px 25px -12px rgba(107, 58, 42, 0.08);
+
+  /* --- Animaciones --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-in: fade-in 0.6s var(--ease-out-expo) both;
+  --animate-slide-up: slide-up 0.7s var(--ease-out-expo) both;
+  --animate-scale-in: scale-in 0.5s var(--ease-out-expo) both;
+}
+
+/* ============================================
+   Keyframes
+   ============================================ */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================
+   Variables CSS para tema claro / oscuro
+   ============================================ */
+:root {
+  /* Tema claro (por defecto) — Fondo blanco */
+  --bg-body: #FFFFFF;
+  --bg-section-alt: var(--color-surface-100);
+  --bg-card: #ffffff;
+  --bg-card-hover: var(--color-surface-100);
+  --bg-nav: rgba(255, 255, 255, 0.88);
+
+  --text-heading: var(--color-primary-950);
+  --text-body: var(--color-steel-700);
+  --text-muted: var(--color-steel-500);
+  --text-inverse: #ffffff;
+
+  --border-default: var(--color-surface-200);
+  --border-subtle: var(--color-surface-200);
+
+  color-scheme: light;
+}
+
+:root.dark {
+  /* Tema oscuro — Tonos café/marrón */
+  --bg-body: #2C1810;
+  --bg-section-alt: #3C1F12;
+  --bg-card: #4A2718;
+  --bg-card-hover: #3C1F12;
+  --bg-nav: rgba(44, 24, 16, 0.92);
+
+  --text-heading: var(--color-surface-100);
+  --text-body: var(--color-steel-300);
+  --text-muted: var(--color-steel-400);
+  --text-inverse: var(--color-surface-950);
+
+  --border-default: var(--color-surface-800);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+
+  color-scheme: dark;
+}
+
+/* ============================================
+   Estilos base
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  line-height: 1.2;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary-600);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+:root.dark a {
+  color: var(--color-accent-400);
+}
+
+a:hover {
+  color: var(--color-accent-600);
+}
+
+::selection {
+  background-color: var(--color-accent-300);
+  color: var(--color-primary-950);
+}
+
+:root.dark ::selection {
+  background-color: var(--color-accent-700);
+  color: white;
+}
+
+/* Focus accesible */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   Utilidades personalizadas
+   ============================================ */
+
+/* Scroll reveal — oculto por defecto */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; }
+
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel-400);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-500);
+}

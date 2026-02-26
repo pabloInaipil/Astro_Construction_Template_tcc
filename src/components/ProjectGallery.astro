@@ -1,0 +1,306 @@
+---
+// src/components/ProjectGallery.astro
+// Galería de proyectos — Filtro por categoría + carrusel por proyecto.
+// Categorías: Ampliaciones, Quinchos, Terrazas, Piscinas.
+
+interface Project {
+  category: string;
+  images: { src: string; alt: string }[];
+  title: string;
+  description: string;
+  location?: string;
+}
+
+const categories = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'ampliaciones', label: 'Ampliaciones' },
+  { id: 'quinchos', label: 'Quinchos' },
+  { id: 'terrazas', label: 'Terrazas' },
+  { id: 'piscinas', label: 'Piscinas' },
+];
+
+const projects: Project[] = [
+  {
+    category: 'ampliaciones',
+    title: 'Ampliación Dormitorio + Baño',
+    description: 'Ampliación de 25m² con estructura metalcom, aislación térmica y terminaciones de alto estándar.',
+    location: 'Puente Alto, Santiago',
+    images: [
+      { src: '/proyectos/ampliaciones/ampliacion-01a.jpg', alt: 'Ampliación estructura inicial' },
+      { src: '/proyectos/ampliaciones/ampliacion-01b.jpg', alt: 'Ampliación avance de obra' },
+      { src: '/proyectos/ampliaciones/ampliacion-01c.jpg', alt: 'Ampliación terminada exterior' },
+      { src: '/proyectos/ampliaciones/ampliacion-01d.jpg', alt: 'Ampliación terminada interior' },
+    ],
+  },
+  {
+    category: 'ampliaciones',
+    title: 'Ampliación Living Comedor',
+    description: 'Extensión de 30m² con ventanales de termopanel, piso flotante y cielo americano.',
+    location: 'La Florida, Santiago',
+    images: [
+      { src: '/proyectos/ampliaciones/ampliacion-02a.jpg', alt: 'Living comedor estructura' },
+      { src: '/proyectos/ampliaciones/ampliacion-02b.jpg', alt: 'Living comedor avance' },
+      { src: '/proyectos/ampliaciones/ampliacion-02c.jpg', alt: 'Living comedor terminado' },
+    ],
+  },
+  {
+    category: 'quinchos',
+    title: 'Quincho Familiar con Parrilla',
+    description: 'Quincho cerrado con parrilla de ladrillo refractario, mesón de granito y bar integrado.',
+    location: 'Las Condes, Santiago',
+    images: [
+      { src: '/proyectos/quinchos/quincho-01a.jpg', alt: 'Quincho vista general' },
+      { src: '/proyectos/quinchos/quincho-01b.jpg', alt: 'Quincho detalle parrilla' },
+      { src: '/proyectos/quinchos/quincho-01c.jpg', alt: 'Quincho mesón y bar' },
+      { src: '/proyectos/quinchos/quincho-01d.jpg', alt: 'Quincho terminado nocturno' },
+    ],
+  },
+  {
+    category: 'quinchos',
+    title: 'Quincho Abierto con Cobertizo',
+    description: 'Espacio abierto con estructura metálica, techo de madera y zona de asador.',
+    location: 'Ñuñoa, Santiago',
+    images: [
+      { src: '/proyectos/quinchos/quincho-02a.jpg', alt: 'Quincho abierto estructura' },
+      { src: '/proyectos/quinchos/quincho-02b.jpg', alt: 'Quincho abierto detalle techo' },
+      { src: '/proyectos/quinchos/quincho-02c.jpg', alt: 'Quincho abierto terminado' },
+    ],
+  },
+  {
+    category: 'terrazas',
+    title: 'Terraza Techada con Policarbonato',
+    description: 'Estructura metálica con techo de policarbonato alveolar, iluminación LED integrada y deck de madera.',
+    location: 'Vitacura, Santiago',
+    images: [
+      { src: '/proyectos/terrazas/terraza-01a.jpg', alt: 'Terraza techada vista general' },
+      { src: '/proyectos/terrazas/terraza-01b.jpg', alt: 'Terraza techada detalle techo' },
+      { src: '/proyectos/terrazas/terraza-01c.jpg', alt: 'Terraza techada vista interior' },
+      { src: '/proyectos/terrazas/terraza-01d.jpg', alt: 'Terraza techada iluminación' },
+    ],
+  },
+  {
+    category: 'terrazas',
+    title: 'Pérgola Metálica Jardín',
+    description: 'Pérgola decorativa con estructura de acero, enredaderas y mobiliario de exterior.',
+    location: 'Lo Barnechea, Santiago',
+    images: [
+      { src: '/proyectos/terrazas/terraza-02a.jpg', alt: 'Pérgola vista general' },
+      { src: '/proyectos/terrazas/terraza-02b.jpg', alt: 'Pérgola detalle estructura' },
+      { src: '/proyectos/terrazas/terraza-02c.jpg', alt: 'Pérgola terminada' },
+    ],
+  },
+  {
+    category: 'piscinas',
+    title: 'Piscina Residencial 8x4m',
+    description: 'Piscina de hormigón proyectado con revestimiento en palmeta, iluminación subacuática y deck perimetral.',
+    location: 'La Reina, Santiago',
+    images: [
+      { src: '/proyectos/piscinas/piscina-01a.jpg', alt: 'Piscina excavación' },
+      { src: '/proyectos/piscinas/piscina-01b.jpg', alt: 'Piscina estructura hormigón' },
+      { src: '/proyectos/piscinas/piscina-01c.jpg', alt: 'Piscina revestimiento' },
+      { src: '/proyectos/piscinas/piscina-01d.jpg', alt: 'Piscina terminada' },
+    ],
+  },
+  {
+    category: 'piscinas',
+    title: 'Piscina con Jacuzzi Integrado',
+    description: 'Piscina temperada con zona de jacuzzi, cascada decorativa y cerco de vidrio templado.',
+    location: 'Chicureo, Santiago',
+    images: [
+      { src: '/proyectos/piscinas/piscina-02a.jpg', alt: 'Piscina jacuzzi obra gruesa' },
+      { src: '/proyectos/piscinas/piscina-02b.jpg', alt: 'Piscina jacuzzi avance' },
+      { src: '/proyectos/piscinas/piscina-02c.jpg', alt: 'Piscina jacuzzi terminada' },
+    ],
+  },
+];
+---
+
+<section id="proyectos" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-10 reveal">
+      <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+        Portafolio
+      </span>
+      <h2 class="section-title mb-4">
+        Nuestros Proyectos
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Cada proyecto refleja nuestro compromiso con la calidad y los detalles.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex justify-center mb-12 reveal">
+      <div class="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-xl" style="background-color: var(--bg-section-alt);">
+        {categories.map((cat) => (
+          <button
+            type="button"
+            class="filter-btn px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap"
+            data-category={cat.id}
+            aria-pressed={cat.id === 'todos' ? 'true' : 'false'}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {projects.map((project) => (
+        <article
+          class="project-card group rounded-2xl overflow-hidden transition-all duration-500"
+          data-category={project.category}
+          style={`background-color: var(--bg-card); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-soft);`}
+        >
+          {/* Carousel Container */}
+          <div class="carousel relative aspect-[4/3] overflow-hidden">
+            <div
+              class="carousel-track flex w-full h-full"
+              style="scroll-snap-type: x mandatory; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;"
+            >
+              {project.images.map((img, imgIndex) => (
+                <div class="carousel-slide flex-shrink-0 w-full h-full" style="scroll-snap-align: start;">
+                  <div class="w-full h-full flex items-center justify-center relative overflow-hidden"
+                    style={`background: linear-gradient(135deg, var(--color-primary-${200 + (imgIndex * 100)}), var(--color-steel-${200 + (imgIndex * 50)}));`}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      decoding="async"
+                      class="absolute inset-0 w-full h-full object-cover"
+                      onerror="this.style.display='none'"
+                    />
+                    <div class="placeholder-icon flex flex-col items-center gap-2 text-primary-400 opacity-60">
+                      <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span class="text-xs font-medium">{img.alt}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {project.images.length > 1 && (
+              <>
+                <button type="button" class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10 backdrop-blur-sm" style="background: rgba(0,0,0,0.5); color: white;" aria-label="Imagen anterior">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button type="button" class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10 backdrop-blur-sm" style="background: rgba(0,0,0,0.5); color: white;" aria-label="Imagen siguiente">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
+              </>
+            )}
+
+            {project.images.length > 1 && (
+              <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                {project.images.map((_, dotIndex) => (
+                  <button type="button" class={`w-2 h-2 rounded-full transition-all duration-200 ${dotIndex === 0 ? 'bg-white w-5' : 'bg-white/50'}`} aria-label={`Ir a imagen ${dotIndex + 1}`} data-dot={dotIndex} />
+                ))}
+              </div>
+            )}
+
+            <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-medium z-10 backdrop-blur-sm" style="background: rgba(0,0,0,0.5); color: white;">
+              <span class="carousel-current">1</span>/{project.images.length}
+            </div>
+
+            <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider z-10 backdrop-blur-sm" style="background: var(--color-accent-500); color: white;">
+              {project.category}
+            </div>
+          </div>
+
+          <div class="p-5">
+            <h3 class="text-base font-heading font-bold mb-1.5" style="color: var(--text-heading);">{project.title}</h3>
+            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-muted);">{project.description}</p>
+            {project.location && (
+              <div class="flex items-center gap-1.5 text-xs" style="color: var(--text-muted);">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {project.location}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="text-center mt-12 reveal">
+      <a href="#contacto" class="btn-primary px-8 py-3">¿Tienes un proyecto? Conversemos</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .filter-btn { color: var(--text-muted); }
+  .filter-btn:hover { color: var(--text-heading); background-color: var(--bg-card); }
+  .filter-btn[aria-pressed='true'] { background-color: var(--color-primary-600); color: white; box-shadow: 0 2px 8px rgba(107, 58, 42, 0.25); }
+  .project-card.is-hidden { opacity: 0; transform: scale(0.95); position: absolute; pointer-events: none; height: 0; overflow: hidden; margin: 0; padding: 0; border: none; }
+  @media (hover: none) { .carousel-prev, .carousel-next { opacity: 0.8 !important; } }
+</style>
+
+<script>
+  // Filter
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const category = (btn as HTMLElement).dataset.category;
+      filterButtons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      projectCards.forEach((card) => {
+        const shouldShow = category === 'todos' || card.dataset.category === category;
+        card.classList.toggle('is-hidden', !shouldShow);
+      });
+    });
+  });
+
+  // Carousels
+  document.querySelectorAll('.carousel').forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>('.carousel-track');
+    const dots = carousel.querySelectorAll<HTMLButtonElement>('.carousel-dots button');
+    const counter = carousel.querySelector<HTMLElement>('.carousel-current');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    if (!track || slides.length <= 1) return;
+
+    let currentIndex = 0;
+    const total = slides.length;
+
+    function goToSlide(index: number) {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      currentIndex = index;
+      track!.scrollTo({ left: track!.clientWidth * index, behavior: 'smooth' });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i === index);
+        dot.classList.toggle('w-5', i === index);
+        dot.classList.toggle('bg-white/50', i !== index);
+      });
+      if (counter) counter.textContent = String(index + 1);
+    }
+
+    carousel.querySelector('.carousel-prev')?.addEventListener('click', () => goToSlide(currentIndex - 1));
+    carousel.querySelector('.carousel-next')?.addEventListener('click', () => goToSlide(currentIndex + 1));
+    dots.forEach((dot) => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.dot))));
+
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const newIndex = Math.round(track.scrollLeft / track.clientWidth);
+        if (newIndex !== currentIndex) goToSlide(newIndex);
+      }, 50);
+    }, { passive: true });
+
+    carousel.addEventListener('keydown', (e: Event) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      if (ke.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    });
+  });
+</script>

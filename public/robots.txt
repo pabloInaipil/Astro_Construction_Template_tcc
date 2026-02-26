@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://todocasa.cl/sitemap-index.xml
