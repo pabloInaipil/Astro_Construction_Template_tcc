@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://todocasa.cl/sitemap-index.xml
+Sitemap: https://todocasa-construcciones.netlify.app/sitemap-index.xml

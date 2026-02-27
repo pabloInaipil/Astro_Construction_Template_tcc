@@ -4,19 +4,25 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  devToolbar: { enabled: false },
-  site: 'https://todocasa.cl',
+  // ⚠️ CAMBIAR A DOMINIO FINAL cuando se configure DNS:
+  // site: 'https://todocasa.cl',
+  site: 'https://todocasa-construcciones.netlify.app',
+
   integrations: [
     sitemap(),
   ],
+
   vite: {
     plugins: [tailwindcss()],
   },
-  image: {
-    domains: [],
+
+  devToolbar: {
+    enabled: false,
   },
+
   build: {
     inlineStylesheets: 'auto',
   },
+
   compressHTML: true,
 });

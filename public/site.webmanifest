@@ -1,10 +1,10 @@
 {
   "name": "TodoCasa Construcciones",
   "short_name": "TodoCasa",
-  "description": "Fabricación de estructuras metálicas, portones, terrazas, galpones, ampliaciones y casas.",
+  "description": "Construcción de ampliaciones, quinchos, terrazas y piscinas con terminaciones de alto estándar.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FDFBF9",
+  "background_color": "#FFFFFF",
   "theme_color": "#6B3A2A",
   "icons": [
     {

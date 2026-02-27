@@ -1,4 +1,5 @@
-# netlify.toml
+# netlify.toml — TodoCasa Construcciones
+
 [build]
   command = "npm run build"
   publish = "dist"
@@ -15,17 +16,41 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; connect-src 'self'; frame-ancestors 'none'"
 
-# Cache agresivo para assets estáticos
+# Cache inmutable para assets compilados (JS/CSS con hash)
 [[headers]]
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Cache largo para fuentes locales
 [[headers]]
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache para imágenes del hero y proyectos (1 semana)
+[[headers]]
+  for = "/hero/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/proyectos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# Favicons y OG image (1 mes)
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/og-image.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
 
 # Redirects
 [[redirects]]
@@ -34,5 +59,9 @@
   status = 301
   force = true
 
-# Manejo de formulario de contacto
-# Los formularios con data-netlify="true" se detectan automáticamente
+# Redirect www → sin www (descomentar cuando se configure dominio)
+# [[redirects]]
+#   from = "https://www.todocasa.cl/*"
+#   to = "https://todocasa.cl/:splat"
+#   status = 301
+#   force = true

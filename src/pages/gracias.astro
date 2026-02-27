@@ -1,0 +1,40 @@
+---
+// src/pages/gracias.astro
+// Página de confirmación post-envío del formulario de contacto.
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout title="Mensaje Enviado — TodoCasa Construcciones" noindex={true}>
+  <section class="min-h-[70vh] flex items-center justify-center px-4 pt-20">
+    <div class="text-center max-w-lg">
+      <!-- Check icon -->
+      <div class="mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-6"
+        style="background-color: var(--color-accent-100);">
+        <svg class="w-10 h-10" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-heading font-bold mb-4" style="color: var(--text-heading);">
+        ¡Mensaje Enviado!
+      </h1>
+      <p class="text-lg mb-3" style="color: var(--text-body);">
+        Gracias por contactarnos. Hemos recibido tu solicitud de cotización.
+      </p>
+      <p class="text-base mb-8" style="color: var(--text-muted);">
+        Te responderemos en menos de 24 horas hábiles.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="btn-primary px-8 py-3">
+          Volver al Inicio
+        </a>
+        <a href="https://wa.me/56912345678?text=Hola,%20acabo%20de%20enviar%20una%20cotización%20por%20la%20web"
+          target="_blank" rel="noopener"
+          class="btn-secondary px-8 py-3">
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

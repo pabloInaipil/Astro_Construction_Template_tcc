@@ -23,7 +23,9 @@ const {
   noindex = false,
 } = Astro.props;
 
-const siteUrl = 'https://todocasa.cl';
+// ⚠️ CAMBIAR cuando se configure dominio final:
+// const siteUrl = 'https://todocasa.cl';
+const siteUrl = 'https://todocasa-construcciones.netlify.app';
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
 // JSON-LD — LocalBusiness
@@ -66,7 +68,6 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -88,6 +89,8 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="TodoCasa Construcciones" />
     <meta property="og:locale" content="es_CL" />
@@ -426,7 +429,6 @@ const jsonLd = {
 
       // --- Header: transparent on hero, solid on scroll ---
       const header = document.getElementById('site-header');
-      let lastScroll = 0;
 
       // Start with at-top class
       header?.classList.add('at-top');
@@ -452,7 +454,6 @@ const jsonLd = {
           }
         }
 
-        lastScroll = currentScroll;
       }, { passive: true });
 
       // --- Scroll Reveal (IntersectionObserver) ---
