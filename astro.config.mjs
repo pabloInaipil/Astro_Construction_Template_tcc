@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  devToolbar: { enabled: false },
   site: 'https://todocasa.cl',
   integrations: [
     sitemap(),
