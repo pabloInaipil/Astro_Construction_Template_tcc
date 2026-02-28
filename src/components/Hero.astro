@@ -59,8 +59,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 <section id="inicio" class="hero-slider relative w-full overflow-hidden" style="height: 100vh; min-height: 600px;">
 
   <!-- ===== VIDEO DE FONDO (capa más baja) ===== -->
-  <!-- ===== VIDEO DE FONDO (solo se muestra si existe el archivo) ===== -->
-  <div class="hero-video-layer absolute inset-0 z-0 hidden" id="hero-video-layer">
+  <div class="hero-video-layer absolute inset-0 z-0">
     <video
       id="hero-video"
       class="absolute inset-0 w-full h-full object-cover"
@@ -69,9 +68,13 @@ const heroVideoPoster = '/hero/slide-01.jpg';
       loop
       playsinline
       preload="metadata"
+      poster={heroVideoPoster}
     >
       <source src={heroVideo} type="video/mp4" />
+      <!-- Agregar .webm como fallback -->
+      <!-- <source src="/hero/video-fondo.webm" type="video/webm" /> -->
     </video>
+    <!-- Overlay oscuro sobre el video -->
     <div class="absolute inset-0 bg-black/50"></div>
   </div>
 
@@ -432,11 +435,10 @@ const heroVideoPoster = '/hero/slide-01.jpg';
   });
 
   // Video error handling — hide video layer if no video found
- const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
-  const videoLayer = document.getElementById('hero-video-layer');
-
-  heroVideo?.addEventListener('canplay', () => {
-    videoLayer?.classList.remove('hidden');
+  const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
+  heroVideo?.addEventListener('error', () => {
+    heroVideo.dataset.error = 'true';
+    heroVideo.closest('.hero-video-layer')?.classList.add('hidden');
   });
 
   // If video source fails
