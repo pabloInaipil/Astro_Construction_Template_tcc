@@ -163,10 +163,26 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 </section>
 
 <style>
-  /* ===== Tipografía Hero ===== */
+  /* ===== Hero container — fix mobile viewport ===== */
+  .hero-slider {
+    height: 100vh;
+    height: 100dvh; /* Mobile: excluye barra del navegador */
+    min-height: 500px;
+  }
+
+  /* ===== Track y slides deben llenar el 100% del alto ===== */
+  .hero-track {
+    height: 100%;
+  }
+
+  .hero-slide {
+    height: 100%;
+  }
+
+  /* ===== Tipografía Hero — MOBILE FIRST ===== */
   .hero-title {
     font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
-    font-size: clamp(3rem, 10vw, 8rem);
+    font-size: clamp(2rem, 8vw, 8rem);
     font-weight: 400;
     color: white;
     line-height: 1.05;
@@ -174,6 +190,8 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     text-transform: uppercase;
     text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
     margin-bottom: 1rem;
+    padding: 0 0.5rem;
+    word-break: break-word;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
@@ -181,11 +199,12 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
   .hero-subtitle {
     font-family: var(--font-sans);
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    font-size: clamp(0.85rem, 1.8vw, 1.2rem);
     color: rgba(255, 255, 255, 0.8);
     font-style: italic;
     letter-spacing: 0.02em;
     margin-bottom: 2rem;
+    padding: 0 1rem;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transform: translateY(20px);
@@ -239,14 +258,14 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ===== Arrows ===== */
+  /* ===== Arrows — más pequeñas en mobile ===== */
   .hero-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 30;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -265,10 +284,14 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     border-color: rgba(255, 255, 255, 0.3);
   }
 
-  .hero-arrow-prev { left: 1rem; }
-  .hero-arrow-next { right: 1rem; }
+  .hero-arrow-prev { left: 0.5rem; }
+  .hero-arrow-next { right: 0.5rem; }
 
   @media (min-width: 768px) {
+    .hero-arrow {
+      width: 48px;
+      height: 48px;
+    }
     .hero-arrow-prev { left: 2rem; }
     .hero-arrow-next { right: 2rem; }
   }
