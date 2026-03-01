@@ -56,7 +56,7 @@ const heroVideo = '/hero/video-fondo.mp4';
 const heroVideoPoster = '/hero/slide-01.jpg';
 ---
 
-<section id="inicio" class="hero-slider relative w-full overflow-hidden" style="height: 100vh; min-height: 600px;">
+<section id="inicio" class="hero-slider relative w-full overflow-hidden">
 
   <!-- ===== VIDEO DE FONDO (capa más baja) ===== -->
   <div class="hero-video-layer absolute inset-0 z-0">
@@ -164,11 +164,47 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
 <style>
   /* ===== Hero container — fix mobile viewport ===== */
+  /* ===== Hero container — mobile-first responsive ===== */
+.hero-slider {
+  height: 65dvh;
+  min-height: 350px;
+  max-height: 500px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
   .hero-slider {
-    height: 100vh;
-    height: 100dvh; /* Mobile: excluye barra del navegador */
-    min-height: 500px;
+    height: 70dvh;
+    min-height: 450px;
+    max-height: 650px;
   }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .hero-slider {
+    height: 100dvh;
+    min-height: 600px;
+    max-height: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: clamp(1.6rem, 7vw, 3rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .hero-cta {
+    padding: 0.7rem 2rem;
+    font-size: 0.7rem;
+  }
+}
 
   /* ===== Track y slides deben llenar el 100% del alto ===== */
   .hero-track {
@@ -298,14 +334,20 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
   /* ===== Dots ===== */
   .hero-dots {
-    position: absolute;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  gap: 0.6rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-dots {
     bottom: 4.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 30;
-    display: flex;
-    gap: 0.6rem;
   }
+}
 
   .hero-dot {
     width: 10px;
