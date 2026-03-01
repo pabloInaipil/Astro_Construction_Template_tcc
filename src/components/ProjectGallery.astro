@@ -1,6 +1,6 @@
 ---
 // src/components/ProjectGallery.astro
-// Galería de proyectos — Filtro por categoría + carrusel por proyecto.
+// Galería de proyectos — Filtro por categoría + carrusel por proyecto + Lightbox.
 // Categorías: Ampliaciones, Quinchos, Terrazas, Piscinas.
 
 interface Project {
@@ -19,6 +19,9 @@ const categories = [
   { id: 'piscinas', label: 'Piscinas' },
 ];
 
+// ============================================================
+// PROYECTOS
+// ============================================================
 const projects: Project[] = [
   {
     category: 'ampliaciones',
@@ -40,7 +43,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/ampliaciones/ampliaciones3.webp', alt: 'Living comedor estructura' },
       { src: '/proyectos/ampliaciones/ampliaciones4.webp', alt: 'Living comedor avance' },
-      { src: '/proyectos/ampliaciones/ampliacion-02c.jpg', alt: 'Living comedor terminado' },
     ],
   },
   {
@@ -51,8 +53,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/quinchos/quinchos4.webp', alt: 'Quincho vista general' },
       { src: '/proyectos/quinchos/quinchos2.jpg', alt: 'Quincho detalle parrilla' },
-      { src: '/proyectos/quinchos/quincho-01c.jpg', alt: 'Quincho mesón y bar' },
-      { src: '/proyectos/quinchos/quincho-01d.jpg', alt: 'Quincho terminado nocturno' },
     ],
   },
   {
@@ -63,7 +63,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/quinchos/quichos1.webp', alt: 'Quincho abierto estructura' },
       { src: '/proyectos/quinchos/quinchos3.webp', alt: 'Quincho abierto detalle techo' },
-      { src: '/proyectos/quinchos/quincho-02c.jpg', alt: 'Quincho abierto terminado' },
     ],
   },
   {
@@ -74,8 +73,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/terrazas/terraza-edi-1.webp', alt: 'Terraza techada vista general' },
       { src: '/proyectos/terrazas/terrazas-header.webp', alt: 'Terraza techada detalle techo' },
-      { src: '/proyectos/terrazas/terraza-01c.jpg', alt: 'Terraza techada vista interior' },
-      { src: '/proyectos/terrazas/terraza-01d.jpg', alt: 'Terraza techada iluminación' },
     ],
   },
   {
@@ -86,7 +83,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/terrazas/terraza3.webp', alt: 'Pérgola vista general' },
       { src: '/proyectos/terrazas/terraza1.webp', alt: 'Pérgola detalle estructura' },
-      { src: '/proyectos/terrazas/terraza-02c.jpg', alt: 'Pérgola terminada' },
     ],
   },
   {
@@ -97,8 +93,6 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/piscinas/piscinas_header.webp', alt: 'Piscina excavación' },
       { src: '/proyectos/piscinas/piscinas.webp', alt: 'Piscina estructura hormigón' },
-      { src: '/proyectos/piscinas/piscina-01c.jpg', alt: 'Piscina revestimiento' },
-      { src: '/proyectos/piscinas/piscina-01d.jpg', alt: 'Piscina terminada' },
     ],
   },
   {
@@ -109,10 +103,12 @@ const projects: Project[] = [
     images: [
       { src: '/proyectos/piscinas/piscinas1.webp', alt: 'Piscina jacuzzi obra gruesa' },
       { src: '/proyectos/piscinas/piscinas2.webp', alt: 'Piscina jacuzzi avance' },
-      { src: '/proyectos/piscinas/piscina-02c.jpg', alt: 'Piscina jacuzzi terminada' },
     ],
   },
 ];
+
+// Mapa de imágenes por proyecto para inyectar al script del lightbox
+const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
 ---
 
 <section id="proyectos" class="py-20 lg:py-28">
@@ -148,7 +144,7 @@ const projects: Project[] = [
 
     <!-- Projects Grid -->
     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-      {projects.map((project) => (
+      {projects.map((project, projectIndex) => (
         <article
           class="project-card group rounded-2xl overflow-hidden transition-all duration-500"
           data-category={project.category}
@@ -162,23 +158,16 @@ const projects: Project[] = [
             >
               {project.images.map((img, imgIndex) => (
                 <div class="carousel-slide flex-shrink-0 w-full h-full" style="scroll-snap-align: start;">
-                  <div class="w-full h-full flex items-center justify-center relative overflow-hidden"
-                    style={`background: linear-gradient(135deg, var(--color-primary-${200 + (imgIndex * 100)}), var(--color-steel-${200 + (imgIndex * 50)}));`}
-                  >
+                  <div class="w-full h-full relative overflow-hidden bg-neutral-200 dark:bg-neutral-800">
                     <img
                       src={img.src}
                       alt={img.alt}
                       loading="lazy"
                       decoding="async"
-                      class="absolute inset-0 w-full h-full object-cover"
-                      onerror="this.style.display='none'"
+                      class="absolute inset-0 w-full h-full object-cover cursor-pointer lightbox-trigger"
+                      data-project={projectIndex}
+                      data-image={imgIndex}
                     />
-                    <div class="placeholder-icon flex flex-col items-center gap-2 text-primary-400 opacity-60">
-                      <svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span class="text-xs font-medium">{img.alt}</span>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -235,22 +224,235 @@ const projects: Project[] = [
   </div>
 </section>
 
+<!-- ===== LIGHTBOX MODAL ===== -->
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de imágenes">
+  <!-- Backdrop -->
+  <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+
+  <!-- Close button -->
+  <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Cerrar visor">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Counter -->
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+
+  <!-- Prev / Next -->
+  <button type="button" id="lightbox-prev" class="lightbox-nav lightbox-nav-prev" aria-label="Imagen anterior">
+    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <button type="button" id="lightbox-next" class="lightbox-nav lightbox-nav-next" aria-label="Imagen siguiente">
+    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- Image container -->
+  <div class="lightbox-image-wrapper" id="lightbox-image-wrapper">
+    <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+  </div>
+</div>
+
 <style>
+  /* ===== Gallery styles ===== */
   .carousel-track::-webkit-scrollbar { display: none; }
   .filter-btn { color: var(--text-muted); }
   .filter-btn:hover { color: var(--text-heading); background-color: var(--bg-card); }
   .filter-btn[aria-pressed='true'] { background-color: var(--color-primary-600); color: white; box-shadow: 0 2px 8px rgba(107, 58, 42, 0.25); }
   .project-card.is-hidden { opacity: 0; transform: scale(0.95); position: absolute; pointer-events: none; height: 0; overflow: hidden; margin: 0; padding: 0; border: none; }
   @media (hover: none) { .carousel-prev, .carousel-next { opacity: 0.8 !important; } }
+
+  /* ===== Lightbox ===== */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Close button */
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+  }
+
+  /* Counter */
+  .lightbox-counter {
+    position: absolute;
+    top: 1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* Nav arrows */
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .lightbox-nav:active {
+    transform: translateY(-50%) scale(0.92);
+  }
+
+  .lightbox-nav-prev { left: 0.75rem; }
+  .lightbox-nav-next { right: 0.75rem; }
+
+  /* Image wrapper */
+  .lightbox-image-wrapper {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    height: 80vh;
+    max-width: 1200px;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .lightbox-img.is-loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ===== Responsive ===== */
+
+  /* Mobile */
+  @media (max-width: 639px) {
+    .lightbox-close {
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 40px;
+      height: 40px;
+    }
+
+    .lightbox-nav {
+      width: 40px;
+      height: 40px;
+    }
+
+    .lightbox-nav-prev { left: 0.4rem; }
+    .lightbox-nav-next { right: 0.4rem; }
+
+    .lightbox-image-wrapper {
+      width: 94vw;
+      height: 70vh;
+    }
+
+    .lightbox-counter {
+      top: 0.85rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .lightbox-image-wrapper {
+      width: 88vw;
+      height: 75vh;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .lightbox-image-wrapper {
+      width: 80vw;
+      height: 82vh;
+    }
+
+    .lightbox-nav {
+      width: 52px;
+      height: 52px;
+    }
+
+    .lightbox-nav-prev { left: 1.5rem; }
+    .lightbox-nav-next { right: 1.5rem; }
+  }
 </style>
 
-<script>
-  // Filter
+<script define:vars={{ projectImagesMap }}>
+  // ============================================================
+  // FILTER
+  // ============================================================
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
+  const projectCards = document.querySelectorAll('.project-card');
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const category = (btn as HTMLElement).dataset.category;
+      const category = btn.dataset.category;
       filterButtons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
       btn.setAttribute('aria-pressed', 'true');
       projectCards.forEach((card) => {
@@ -260,22 +462,24 @@ const projects: Project[] = [
     });
   });
 
-  // Carousels
+  // ============================================================
+  // CAROUSELS (per-card)
+  // ============================================================
   document.querySelectorAll('.carousel').forEach((carousel) => {
-    const track = carousel.querySelector<HTMLElement>('.carousel-track');
-    const dots = carousel.querySelectorAll<HTMLButtonElement>('.carousel-dots button');
-    const counter = carousel.querySelector<HTMLElement>('.carousel-current');
+    const track = carousel.querySelector('.carousel-track');
+    const dots = carousel.querySelectorAll('.carousel-dots button');
+    const counter = carousel.querySelector('.carousel-current');
     const slides = carousel.querySelectorAll('.carousel-slide');
     if (!track || slides.length <= 1) return;
 
     let currentIndex = 0;
     const total = slides.length;
 
-    function goToSlide(index: number) {
+    function goToSlide(index) {
       if (index < 0) index = total - 1;
       if (index >= total) index = 0;
       currentIndex = index;
-      track!.scrollTo({ left: track!.clientWidth * index, behavior: 'smooth' });
+      track.scrollTo({ left: track.clientWidth * index, behavior: 'smooth' });
       dots.forEach((dot, i) => {
         dot.classList.toggle('bg-white', i === index);
         dot.classList.toggle('w-5', i === index);
@@ -284,11 +488,20 @@ const projects: Project[] = [
       if (counter) counter.textContent = String(index + 1);
     }
 
-    carousel.querySelector('.carousel-prev')?.addEventListener('click', () => goToSlide(currentIndex - 1));
-    carousel.querySelector('.carousel-next')?.addEventListener('click', () => goToSlide(currentIndex + 1));
-    dots.forEach((dot) => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.dot))));
+    carousel.querySelector('.carousel-prev')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentIndex - 1);
+    });
+    carousel.querySelector('.carousel-next')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentIndex + 1);
+    });
+    dots.forEach((dot) => dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(Number(dot.dataset.dot));
+    }));
 
-    let scrollTimeout: ReturnType<typeof setTimeout>;
+    let scrollTimeout;
     track.addEventListener('scroll', () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
@@ -297,10 +510,121 @@ const projects: Project[] = [
       }, 50);
     }, { passive: true });
 
-    carousel.addEventListener('keydown', (e: Event) => {
-      const ke = e as KeyboardEvent;
-      if (ke.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-      if (ke.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
     });
   });
+
+  // ============================================================
+  // LIGHTBOX
+  // ============================================================
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+
+  let currentProjectImages = [];
+  let currentLightboxIndex = 0;
+
+  function openLightbox(projectIdx, imageIdx) {
+    currentProjectImages = projectImagesMap[projectIdx] || [];
+    currentLightboxIndex = imageIdx;
+    if (currentProjectImages.length === 0) return;
+
+    showLightboxImage();
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Show/hide nav si solo hay 1 imagen
+    const hasMultiple = currentProjectImages.length > 1;
+    lightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
+    lightboxNext.style.display = hasMultiple ? 'flex' : 'none';
+    lightboxCounter.style.display = hasMultiple ? 'block' : 'none';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+      lightboxImg.classList.remove('is-loaded');
+    }, 300);
+  }
+
+  function showLightboxImage() {
+    const src = currentProjectImages[currentLightboxIndex];
+    if (!src) return;
+
+    lightboxImg.classList.remove('is-loaded');
+    lightboxImg.src = src;
+    lightboxImg.alt = 'Imagen ' + (currentLightboxIndex + 1) + ' de ' + currentProjectImages.length;
+    lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + currentProjectImages.length;
+
+    if (lightboxImg.complete && lightboxImg.naturalWidth > 0) {
+      lightboxImg.classList.add('is-loaded');
+    } else {
+      lightboxImg.onload = function() { lightboxImg.classList.add('is-loaded'); };
+    }
+  }
+
+  function lightboxGo(direction) {
+    currentLightboxIndex += direction;
+    if (currentLightboxIndex < 0) currentLightboxIndex = currentProjectImages.length - 1;
+    if (currentLightboxIndex >= currentProjectImages.length) currentLightboxIndex = 0;
+    showLightboxImage();
+  }
+
+  // --- Event listeners ---
+
+  // Open: click en cualquier imagen de la galería
+  document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var projectIdx = parseInt(img.dataset.project, 10);
+      var imageIdx = parseInt(img.dataset.image, 10);
+      openLightbox(projectIdx, imageIdx);
+    });
+  });
+
+  // Close
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxBackdrop.addEventListener('click', closeLightbox);
+
+  // Nav arrows
+  lightboxPrev.addEventListener('click', function() { lightboxGo(-1); });
+  lightboxNext.addEventListener('click', function() { lightboxGo(1); });
+
+  // Keyboard: Escape, ← , →
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lightboxGo(-1);
+    if (e.key === 'ArrowRight') lightboxGo(1);
+  });
+
+  // Touch swipe en el lightbox (mobile/tablet)
+  var lbTouchStartX = 0;
+  var lbTouchStartY = 0;
+
+  lightbox.addEventListener('touchstart', function(e) {
+    lbTouchStartX = e.changedTouches[0].screenX;
+    lbTouchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', function(e) {
+    var diffX = lbTouchStartX - e.changedTouches[0].screenX;
+    var diffY = lbTouchStartY - e.changedTouches[0].screenY;
+    // Solo swipes horizontales (ignorar scroll vertical)
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) lightboxGo(1);   // swipe left → siguiente
+      else lightboxGo(-1);             // swipe right → anterior
+    }
+  }, { passive: true });
 </script>
