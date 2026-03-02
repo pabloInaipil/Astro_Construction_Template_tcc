@@ -69,7 +69,7 @@ const serviceOptions = [
                 name="telefono"
                 required
                 autocomplete="tel"
-                placeholder="+56 9 1234 5678"
+                placeholder="+56979055280"
                 class="form-input"
               />
             </div>
@@ -166,7 +166,7 @@ const serviceOptions = [
               </div>
               <div>
                 <div class="text-xs text-surface-400 mb-0.5">Teléfono</div>
-                <div class="text-white font-semibold group-hover:text-accent-400 transition-colors">+56 9 1234 5678</div>
+                <div class="text-white font-semibold group-hover:text-accent-400 transition-colors">+56979055280</div>
               </div>
             </a>
 
@@ -179,7 +179,7 @@ const serviceOptions = [
               </div>
               <div>
                 <div class="text-xs text-surface-400 mb-0.5">WhatsApp</div>
-                <div class="text-white font-semibold group-hover:text-green-400 transition-colors">+56 9 1234 5678</div>
+                <div class="text-white font-semibold group-hover:text-green-400 transition-colors">+56979055280</div>
               </div>
             </a>
 
@@ -279,6 +279,12 @@ const serviceOptions = [
 </style>
 
 <script>
+  // Declarar dataLayer para TypeScript
+declare global {
+  interface Window {
+    dataLayer: Record<string, any>[];
+  }
+}
   // Form submission with Netlify
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const successMsg = document.getElementById('form-success');
@@ -315,6 +321,16 @@ const serviceOptions = [
       if (response.ok) {
         successMsg?.classList.remove('hidden');
         form.reset();
+
+// GTM: evento de conversión para Google Ads
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submit',
+          form_name: 'cotizacion',
+          form_service: formData.get('servicio') || '',
+     });
+
+
       } else {
         throw new Error('Form submission failed');
       }
@@ -325,4 +341,37 @@ const serviceOptions = [
       submitBtn.innerHTML = originalText;
     }
   });
-</script>
+   // GTM: tracking clicks en WhatsApp (todos los links wa.me)
+  document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'whatsapp_click',
+        link_url: link.getAttribute('href'),
+      });
+    });
+  });
+
+  // GTM: tracking click en CTA "Cotiza Tu Proyecto" del Hero
+  document.querySelectorAll('a[href="#contacto"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'cta_click',
+        cta_text: link.textContent?.trim() || '',
+      });
+    });
+  });
+
+  // GTM: tracking llamadas telefónicas
+  document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'phone_click',
+        phone_number: link.getAttribute('href'),
+      });
+    });
+  });
+
+  </script>
