@@ -1,14 +1,20 @@
 ---
 // src/components/ProjectGallery.astro
-// Galería de proyectos — Filtro por categoría + carrusel por proyecto + Lightbox.
-// Categorías: Ampliaciones, Quinchos, Terrazas, Piscinas.
+// Galería de proyectos — Filtro por categoría + carrusel por proyecto.
+// Cada imagen tiene su propio título, descripción y ubicación.
+// Al navegar el carrusel, la info de la tarjeta y del lightbox se actualiza.
 
-interface Project {
-  category: string;
-  images: { src: string; alt: string }[];
+interface ProjectImage {
+  src: string;
+  alt: string;
   title: string;
   description: string;
   location?: string;
+}
+
+interface Project {
+  category: string;
+  images: ProjectImage[];
 }
 
 const categories = [
@@ -20,95 +26,258 @@ const categories = [
 ];
 
 // ============================================================
-// PROYECTOS
+// CATÁLOGO DE PROYECTOS
+// Para agregar un proyecto nuevo, copia un bloque { category, images }
+// y edita los campos. Cada imagen lleva su propio título/descripción.
 // ============================================================
 const projects: Project[] = [
   {
     category: 'ampliaciones',
-    title: 'Ampliación Dormitorio + Baño',
-    description: 'Ampliación de 25m² con estructura metalcom, aislación térmica y terminaciones de alto estándar.',
-    location: 'Puente Alto, Santiago',
     images: [
-      { src: '/proyectos/ampliaciones/ampliaciones.webp', alt: 'Ampliación estructura inicial' },
-      { src: '/proyectos/ampliaciones/ampliaciones2.webp', alt: 'Ampliación avance de obra' },
-      { src: '/proyectos/ampliaciones/ampliacione3.webp', alt: 'Ampliación terminada exterior' },
-      { src: '/proyectos/ampliaciones/ampliacione4.webp', alt: 'Ampliación terminada interior' },
+      {
+        src: '/proyectos/ampliaciones/ampliaciones.webp',
+        alt: 'Ampliación estructura inicial',
+        title: 'Ampliación Dormitorio + Baño',
+        description: 'Ampliación de 25m² con estructura metalcom, aislación térmica y terminaciones de alto estándar.',
+        location: 'Puente Alto, Santiago',
+      },
+      {
+        src: '/proyectos/ampliaciones/ampliaciones2.webp',
+        alt: 'Ampliación avance de obra',
+        title: 'Avance de Obra — Estructura',
+        description: 'Montaje de estructura metalcom con aislación térmica e impermeabilización.',
+        location: 'Puente Alto, Santiago',
+      },
+      {
+        src: '/proyectos/ampliaciones/ampliacione3.webp',
+        alt: 'Ampliación terminada exterior',
+        title: 'Exterior Terminado',
+        description: 'Vista exterior con revestimiento de fibrocemento y ventanas de termopanel.',
+        location: 'Puente Alto, Santiago',
+      },
+      {
+        src: '/proyectos/ampliaciones/ampliacione4.webp',
+        alt: 'Ampliación terminada interior',
+        title: 'Interior Terminado',
+        description: 'Dormitorio con piso flotante, cielo americano y baño completo.',
+        location: 'Puente Alto, Santiago',
+      },
     ],
   },
   {
     category: 'ampliaciones',
-    title: 'Ampliación Living Comedor',
-    description: 'Extensión de 30m² con ventanales de termopanel, piso flotante y cielo americano.',
-    location: 'La Florida, Santiago',
     images: [
-      { src: '/proyectos/ampliaciones/ampliaciones3.webp', alt: 'Living comedor estructura' },
-      { src: '/proyectos/ampliaciones/ampliaciones4.webp', alt: 'Living comedor avance' },
+      {
+        src: '/proyectos/ampliaciones/ampliaciones3.webp',
+        alt: 'Living comedor estructura',
+        title: 'Ampliación Living Comedor',
+        description: 'Extensión de 30m² con ventanales de termopanel, piso flotante y cielo americano.',
+        location: 'La Florida, Santiago',
+      },
+      {
+        src: '/proyectos/ampliaciones/ampliaciones4.webp',
+        alt: 'Living comedor avance',
+        title: 'Avance — Estructura Metálica',
+        description: 'Montaje de estructura y cubierta con aislación térmica.',
+        location: 'La Florida, Santiago',
+      },
+      {
+        src: '/proyectos/ampliaciones/ampliacion-02c.jpg',
+        alt: 'Living comedor terminado',
+        title: 'Living Comedor Terminado',
+        description: 'Espacio terminado con ventanales de termopanel y piso flotante.',
+        location: 'La Florida, Santiago',
+      },
     ],
   },
   {
     category: 'quinchos',
-    title: 'Quincho Familiar con Parrilla',
-    description: 'Quincho cerrado con parrilla de ladrillo refractario, mesón de granito y bar integrado.',
-    location: 'Las Condes, Santiago',
     images: [
-      { src: '/proyectos/quinchos/quinchos4.webp', alt: 'Quincho vista general' },
-      { src: '/proyectos/quinchos/quinchos2.jpg', alt: 'Quincho detalle parrilla' },
+      {
+        src: '/proyectos/quinchos/quinchos4.webp',
+        alt: 'Quincho vista general',
+        title: 'Quincho Familiar con Parrilla',
+        description: 'Quincho cerrado con parrilla de ladrillo refractario, mesón de granito y bar integrado.',
+        location: 'Las Condes, Santiago',
+      },
+      {
+        src: '/proyectos/quinchos/quinchos2.jpg',
+        alt: 'Quincho detalle parrilla',
+        title: 'Detalle Parrilla y Mesón',
+        description: 'Parrilla de ladrillo refractario con mesón de granito integrado.',
+        location: 'Las Condes, Santiago',
+      },
+      {
+        src: '/proyectos/quinchos/quincho-01c.jpg',
+        alt: 'Quincho mesón y bar',
+        title: 'Bar Integrado',
+        description: 'Mesón de granito con lavaplatos y estantería de madera nativa.',
+        location: 'Las Condes, Santiago',
+      },
+      {
+        src: '/proyectos/quinchos/quincho-01d.jpg',
+        alt: 'Quincho terminado nocturno',
+        title: 'Vista Nocturna',
+        description: 'Iluminación LED cálida integrada en cielo de madera.',
+        location: 'Las Condes, Santiago',
+      },
     ],
   },
   {
     category: 'quinchos',
-    title: 'Quincho Abierto con Cobertizo',
-    description: 'Espacio abierto con estructura metálica, techo de madera y zona de asador.',
-    location: 'Ñuñoa, Santiago',
     images: [
-      { src: '/proyectos/quinchos/quichos1.webp', alt: 'Quincho abierto estructura' },
-      { src: '/proyectos/quinchos/quinchos3.webp', alt: 'Quincho abierto detalle techo' },
+      {
+        src: '/proyectos/quinchos/quichos1.webp',
+        alt: 'Quincho abierto estructura',
+        title: 'Quincho Abierto con Cobertizo',
+        description: 'Espacio abierto con estructura metálica, techo de madera y zona de asador.',
+        location: 'Ñuñoa, Santiago',
+      },
+      {
+        src: '/proyectos/quinchos/quinchos3.webp',
+        alt: 'Quincho abierto detalle techo',
+        title: 'Detalle Techo de Madera',
+        description: 'Estructura metálica con cubierta de madera tratada y barniz marino.',
+        location: 'Ñuñoa, Santiago',
+      },
+      {
+        src: '/proyectos/quinchos/quincho-02c.jpg',
+        alt: 'Quincho abierto terminado',
+        title: 'Quincho Abierto Terminado',
+        description: 'Espacio completo con asador, mesón y área de estar.',
+        location: 'Ñuñoa, Santiago',
+      },
     ],
   },
   {
     category: 'terrazas',
-    title: 'Terraza Techada con Policarbonato',
-    description: 'Estructura metálica con techo de policarbonato alveolar, iluminación LED integrada y deck de madera.',
-    location: 'Vitacura, Santiago',
     images: [
-      { src: '/proyectos/terrazas/terraza-edi-1.webp', alt: 'Terraza techada vista general' },
-      { src: '/proyectos/terrazas/terrazas-header.webp', alt: 'Terraza techada detalle techo' },
+      {
+        src: '/proyectos/terrazas/terraza-edi-1.webp',
+        alt: 'Terraza techada vista general',
+        title: 'Terraza Techada con Policarbonato',
+        description: 'Estructura metálica con techo de policarbonato alveolar, iluminación LED integrada y deck de madera.',
+        location: 'Vitacura, Santiago',
+      },
+      {
+        src: '/proyectos/terrazas/terrazas-header.webp',
+        alt: 'Terraza techada detalle techo',
+        title: 'Detalle Policarbonato',
+        description: 'Techo de policarbonato alveolar con estructura de acero pintado al horno.',
+        location: 'Vitacura, Santiago',
+      },
+      {
+        src: '/proyectos/terrazas/terraza-01c.jpg',
+        alt: 'Terraza techada vista interior',
+        title: 'Vista Interior',
+        description: 'Espacio bajo techo con iluminación natural filtrada.',
+        location: 'Vitacura, Santiago',
+      },
+      {
+        src: '/proyectos/terrazas/terraza-01d.jpg',
+        alt: 'Terraza techada iluminación',
+        title: 'Iluminación LED',
+        description: 'Sistema de iluminación LED cálida integrada en la estructura.',
+        location: 'Vitacura, Santiago',
+      },
     ],
   },
   {
     category: 'terrazas',
-    title: 'Pérgola Metálica Jardín',
-    description: 'Pérgola decorativa con estructura de acero, enredaderas y mobiliario de exterior.',
-    location: 'Lo Barnechea, Santiago',
     images: [
-      { src: '/proyectos/terrazas/terraza3.webp', alt: 'Pérgola vista general' },
-      { src: '/proyectos/terrazas/terraza1.webp', alt: 'Pérgola detalle estructura' },
+      {
+        src: '/proyectos/terrazas/terraza3.webp',
+        alt: 'Pérgola vista general',
+        title: 'Pérgola Metálica Jardín',
+        description: 'Pérgola decorativa con estructura de acero, enredaderas y mobiliario de exterior.',
+        location: 'Lo Barnechea, Santiago',
+      },
+      {
+        src: '/proyectos/terrazas/terraza1.webp',
+        alt: 'Pérgola detalle estructura',
+        title: 'Detalle Estructura de Acero',
+        description: 'Perfiles de acero soldados y pintados al horno con acabado mate.',
+        location: 'Lo Barnechea, Santiago',
+      },
+      {
+        src: '/proyectos/terrazas/terraza-02c.jpg',
+        alt: 'Pérgola terminada',
+        title: 'Pérgola Terminada',
+        description: 'Vista final con enredaderas y mobiliario de exterior integrado.',
+        location: 'Lo Barnechea, Santiago',
+      },
     ],
   },
   {
     category: 'piscinas',
-    title: 'Piscina Residencial 8x4m',
-    description: 'Piscina de hormigón proyectado con revestimiento en palmeta, iluminación subacuática y deck perimetral.',
-    location: 'La Reina, Santiago',
     images: [
-      { src: '/proyectos/piscinas/piscinas_header.webp', alt: 'Piscina excavación' },
-      { src: '/proyectos/piscinas/piscinas.webp', alt: 'Piscina estructura hormigón' },
+      {
+        src: '/proyectos/piscinas/piscinas_header.webp',
+        alt: 'Piscina excavación',
+        title: 'Piscina Residencial 8x4m',
+        description: 'Piscina de hormigón proyectado con revestimiento en palmeta, iluminación subacuática y deck perimetral.',
+        location: 'La Reina, Santiago',
+      },
+      {
+        src: '/proyectos/piscinas/piscinas.webp',
+        alt: 'Piscina estructura hormigón',
+        title: 'Estructura de Hormigón',
+        description: 'Hormigón proyectado con malla de acero y sistema de filtración integrado.',
+        location: 'La Reina, Santiago',
+      },
+      {
+        src: '/proyectos/piscinas/piscina-01c.jpg',
+        alt: 'Piscina revestimiento',
+        title: 'Revestimiento en Palmeta',
+        description: 'Instalación de palmeta cerámica antideslizante en interior y bordes.',
+        location: 'La Reina, Santiago',
+      },
+      {
+        src: '/proyectos/piscinas/piscina-01d.jpg',
+        alt: 'Piscina terminada',
+        title: 'Piscina Terminada',
+        description: 'Vista final con deck de madera, iluminación y paisajismo.',
+        location: 'La Reina, Santiago',
+      },
     ],
   },
   {
     category: 'piscinas',
-    title: 'Piscina con Jacuzzi Integrado',
-    description: 'Piscina temperada con zona de jacuzzi, cascada decorativa y cerco de vidrio templado.',
-    location: 'Chicureo, Santiago',
     images: [
-      { src: '/proyectos/piscinas/piscinas1.webp', alt: 'Piscina jacuzzi obra gruesa' },
-      { src: '/proyectos/piscinas/piscinas2.webp', alt: 'Piscina jacuzzi avance' },
+      {
+        src: '/proyectos/piscinas/piscinas1.webp',
+        alt: 'Piscina jacuzzi obra gruesa',
+        title: 'Piscina con Jacuzzi Integrado',
+        description: 'Piscina temperada con zona de jacuzzi, cascada decorativa y cerco de vidrio templado.',
+        location: 'Chicureo, Santiago',
+      },
+      {
+        src: '/proyectos/piscinas/piscinas2.webp',
+        alt: 'Piscina jacuzzi avance',
+        title: 'Avance — Jacuzzi y Cascada',
+        description: 'Montaje de sistema de jacuzzi con cascada de agua temperada.',
+        location: 'Chicureo, Santiago',
+      },
+      {
+        src: '/proyectos/piscinas/piscina-02c.jpg',
+        alt: 'Piscina jacuzzi terminada',
+        title: 'Piscina + Jacuzzi Terminada',
+        description: 'Vista final con cerco de vidrio templado y paisajismo premium.',
+        location: 'Chicureo, Santiago',
+      },
     ],
   },
 ];
 
-// Mapa de imágenes por proyecto para inyectar al script del lightbox
-const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
+// Mapa para el lightbox — ahora incluye metadata por imagen
+const projectImagesMap = projects.map((p) =>
+  p.images.map((img) => ({
+    src: img.src,
+    title: img.title,
+    description: img.description,
+    location: img.location || '',
+  }))
+);
 ---
 
 <section id="proyectos" class="py-20 lg:py-28">
@@ -157,7 +326,13 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
               style="scroll-snap-type: x mandatory; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;"
             >
               {project.images.map((img, imgIndex) => (
-                <div class="carousel-slide flex-shrink-0 w-full h-full" style="scroll-snap-align: start;">
+                <div
+                  class="carousel-slide flex-shrink-0 w-full h-full"
+                  style="scroll-snap-align: start;"
+                  data-title={img.title}
+                  data-description={img.description}
+                  data-location={img.location || ''}
+                >
                   <div class="w-full h-full relative overflow-hidden bg-neutral-200 dark:bg-neutral-800">
                     <img
                       src={img.src}
@@ -201,16 +376,21 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
             </div>
           </div>
 
+          {/* Info — se actualiza dinámicamente con el carrusel */}
           <div class="p-5">
-            <h3 class="text-base font-heading font-bold mb-1.5" style="color: var(--text-heading);">{project.title}</h3>
-            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-muted);">{project.description}</p>
-            {project.location && (
-              <div class="flex items-center gap-1.5 text-xs" style="color: var(--text-muted);">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <h3 class="card-title text-base font-heading font-bold mb-1.5" style="color: var(--text-heading);">
+              {project.images[0].title}
+            </h3>
+            <p class="card-description text-sm leading-relaxed mb-3" style="color: var(--text-muted);">
+              {project.images[0].description}
+            </p>
+            {project.images[0].location && (
+              <div class="card-location flex items-center gap-1.5 text-xs" style="color: var(--text-muted);">
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                {project.location}
+                <span class="card-location-text">{project.images[0].location}</span>
               </div>
             )}
           </div>
@@ -226,20 +406,16 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
 
 <!-- ===== LIGHTBOX MODAL ===== -->
 <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de imágenes">
-  <!-- Backdrop -->
   <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
 
-  <!-- Close button -->
   <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Cerrar visor">
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   </button>
 
-  <!-- Counter -->
   <div class="lightbox-counter" id="lightbox-counter"></div>
 
-  <!-- Prev / Next -->
   <button type="button" id="lightbox-prev" class="lightbox-nav lightbox-nav-prev" aria-label="Imagen anterior">
     <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -251,9 +427,17 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     </svg>
   </button>
 
-  <!-- Image container -->
-  <div class="lightbox-image-wrapper" id="lightbox-image-wrapper">
-    <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+  <!-- Image + Caption container -->
+  <div class="lightbox-content" id="lightbox-content">
+    <div class="lightbox-image-wrapper" id="lightbox-image-wrapper">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+    </div>
+    <!-- Caption con título, descripción y ubicación -->
+    <div class="lightbox-caption" id="lightbox-caption">
+      <h4 class="lightbox-caption-title" id="lightbox-caption-title"></h4>
+      <p class="lightbox-caption-desc" id="lightbox-caption-desc"></p>
+      <span class="lightbox-caption-location" id="lightbox-caption-location"></span>
+    </div>
   </div>
 </div>
 
@@ -292,7 +476,6 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     backdrop-filter: blur(8px);
   }
 
-  /* Close button */
   .lightbox-close {
     position: absolute;
     top: 1rem;
@@ -316,7 +499,6 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     transform: scale(1.1);
   }
 
-  /* Counter */
   .lightbox-counter {
     position: absolute;
     top: 1.1rem;
@@ -329,7 +511,6 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     letter-spacing: 0.05em;
   }
 
-  /* Nav arrows */
   .lightbox-nav {
     position: absolute;
     top: 50%;
@@ -359,23 +540,31 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
   .lightbox-nav-prev { left: 0.75rem; }
   .lightbox-nav-next { right: 0.75rem; }
 
-  /* Image wrapper */
-  .lightbox-image-wrapper {
+  /* Content wrapper — imagen + caption */
+  .lightbox-content {
     position: relative;
     z-index: 5;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox-image-wrapper {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 90vw;
-    height: 80vh;
-    max-width: 1200px;
+    width: 100%;
+    height: 70vh;
   }
 
   .lightbox-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     user-select: none;
     -webkit-user-drag: none;
@@ -389,9 +578,43 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     transform: scale(1);
   }
 
-  /* ===== Responsive ===== */
+  /* Caption */
+  .lightbox-caption {
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem 1.25rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.15s;
+  }
 
-  /* Mobile */
+  .lightbox.is-open .lightbox-caption {
+    opacity: 1;
+  }
+
+  .lightbox-caption-title {
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.3;
+  }
+
+  .lightbox-caption-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.5;
+  }
+
+  .lightbox-caption-location {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* ===== Responsive ===== */
   @media (max-width: 639px) {
     .lightbox-close {
       top: 0.75rem;
@@ -408,30 +631,45 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     .lightbox-nav-prev { left: 0.4rem; }
     .lightbox-nav-next { right: 0.4rem; }
 
+    .lightbox-content {
+      width: 96vw;
+    }
+
     .lightbox-image-wrapper {
-      width: 94vw;
-      height: 70vh;
+      height: 55vh;
     }
 
     .lightbox-counter {
       top: 0.85rem;
       font-size: 0.8rem;
     }
-  }
 
-  /* Tablet */
-  @media (min-width: 640px) and (max-width: 1023px) {
-    .lightbox-image-wrapper {
-      width: 88vw;
-      height: 75vh;
+    .lightbox-caption {
+      padding: 0.75rem 1rem;
+    }
+
+    .lightbox-caption-title {
+      font-size: 0.95rem;
+    }
+
+    .lightbox-caption-desc {
+      font-size: 0.8rem;
     }
   }
 
-  /* Desktop */
-  @media (min-width: 1024px) {
+  @media (min-width: 640px) and (max-width: 1023px) {
     .lightbox-image-wrapper {
+      height: 65vh;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lightbox-content {
       width: 80vw;
-      height: 82vh;
+    }
+
+    .lightbox-image-wrapper {
+      height: 72vh;
     }
 
     .lightbox-nav {
@@ -444,15 +682,15 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
   }
 </style>
 
-<script define:vars={{ projectImagesMap }}>
+<script>
   // ============================================================
-  // FILTER
+  // FILTRO DE CATEGORÍAS
   // ============================================================
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
+  const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const category = btn.dataset.category;
+      const category = (btn as HTMLElement).dataset.category;
       filterButtons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
       btn.setAttribute('aria-pressed', 'true');
       projectCards.forEach((card) => {
@@ -463,29 +701,54 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
   });
 
   // ============================================================
-  // CAROUSELS (per-card)
+  // CARRUSELES — con actualización de metadata en tarjeta
   // ============================================================
   document.querySelectorAll('.carousel').forEach((carousel) => {
-    const track = carousel.querySelector('.carousel-track');
-    const dots = carousel.querySelectorAll('.carousel-dots button');
-    const counter = carousel.querySelector('.carousel-current');
-    const slides = carousel.querySelectorAll('.carousel-slide');
+    const card = carousel.closest('.project-card') as HTMLElement;
+    const track = carousel.querySelector<HTMLElement>('.carousel-track');
+    const dots = carousel.querySelectorAll<HTMLButtonElement>('.carousel-dots button');
+    const counter = carousel.querySelector<HTMLElement>('.carousel-current');
+    const slides = carousel.querySelectorAll<HTMLElement>('.carousel-slide');
     if (!track || slides.length <= 1) return;
+
+    const cardTitle = card?.querySelector<HTMLElement>('.card-title');
+    const cardDesc = card?.querySelector<HTMLElement>('.card-description');
+    const cardLocation = card?.querySelector<HTMLElement>('.card-location');
+    const cardLocationText = card?.querySelector<HTMLElement>('.card-location-text');
 
     let currentIndex = 0;
     const total = slides.length;
 
-    function goToSlide(index) {
+    function updateCardInfo(index: number) {
+      const slide = slides[index];
+      if (!slide) return;
+
+      if (cardTitle) cardTitle.textContent = slide.dataset.title || '';
+      if (cardDesc) cardDesc.textContent = slide.dataset.description || '';
+
+      if (cardLocation && cardLocationText) {
+        const loc = slide.dataset.location || '';
+        if (loc) {
+          cardLocationText.textContent = loc;
+          cardLocation.style.display = '';
+        } else {
+          cardLocation.style.display = 'none';
+        }
+      }
+    }
+
+    function goToSlide(index: number) {
       if (index < 0) index = total - 1;
       if (index >= total) index = 0;
       currentIndex = index;
-      track.scrollTo({ left: track.clientWidth * index, behavior: 'smooth' });
+      track!.scrollTo({ left: track!.clientWidth * index, behavior: 'smooth' });
       dots.forEach((dot, i) => {
         dot.classList.toggle('bg-white', i === index);
         dot.classList.toggle('w-5', i === index);
         dot.classList.toggle('bg-white/50', i !== index);
       });
       if (counter) counter.textContent = String(index + 1);
+      updateCardInfo(index);
     }
 
     carousel.querySelector('.carousel-prev')?.addEventListener('click', (e) => {
@@ -501,7 +764,7 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
       goToSlide(Number(dot.dataset.dot));
     }));
 
-    let scrollTimeout;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
     track.addEventListener('scroll', () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
@@ -510,25 +773,31 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
       }, 50);
     }, { passive: true });
 
-    carousel.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-      if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    carousel.addEventListener('keydown', (e: Event) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      if (ke.key === 'ArrowRight') goToSlide(currentIndex + 1);
     });
   });
+</script>
 
+<script define:vars={{ projectImagesMap }}>
   // ============================================================
-  // LIGHTBOX
+  // LIGHTBOX — con caption dinámico (título, descripción, ubicación)
   // ============================================================
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxClose = document.getElementById('lightbox-close');
-  const lightboxPrev = document.getElementById('lightbox-prev');
-  const lightboxNext = document.getElementById('lightbox-next');
-  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
-  const lightboxCounter = document.getElementById('lightbox-counter');
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  var lightboxClose = document.getElementById('lightbox-close');
+  var lightboxPrev = document.getElementById('lightbox-prev');
+  var lightboxNext = document.getElementById('lightbox-next');
+  var lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  var lightboxCounter = document.getElementById('lightbox-counter');
+  var lightboxCaptionTitle = document.getElementById('lightbox-caption-title');
+  var lightboxCaptionDesc = document.getElementById('lightbox-caption-desc');
+  var lightboxCaptionLocation = document.getElementById('lightbox-caption-location');
 
-  let currentProjectImages = [];
-  let currentLightboxIndex = 0;
+  var currentProjectImages = [];
+  var currentLightboxIndex = 0;
 
   function openLightbox(projectIdx, imageIdx) {
     currentProjectImages = projectImagesMap[projectIdx] || [];
@@ -540,8 +809,7 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Show/hide nav si solo hay 1 imagen
-    const hasMultiple = currentProjectImages.length > 1;
+    var hasMultiple = currentProjectImages.length > 1;
     lightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
     lightboxNext.style.display = hasMultiple ? 'flex' : 'none';
     lightboxCounter.style.display = hasMultiple ? 'block' : 'none';
@@ -551,20 +819,24 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     lightbox.classList.remove('is-open');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    setTimeout(() => {
+    setTimeout(function() {
       lightboxImg.src = '';
       lightboxImg.alt = '';
       lightboxImg.classList.remove('is-loaded');
+      lightboxCaptionTitle.textContent = '';
+      lightboxCaptionDesc.textContent = '';
+      lightboxCaptionLocation.textContent = '';
     }, 300);
   }
 
   function showLightboxImage() {
-    const src = currentProjectImages[currentLightboxIndex];
-    if (!src) return;
+    var imgData = currentProjectImages[currentLightboxIndex];
+    if (!imgData) return;
 
+    // Imagen
     lightboxImg.classList.remove('is-loaded');
-    lightboxImg.src = src;
-    lightboxImg.alt = 'Imagen ' + (currentLightboxIndex + 1) + ' de ' + currentProjectImages.length;
+    lightboxImg.src = imgData.src;
+    lightboxImg.alt = imgData.title;
     lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + currentProjectImages.length;
 
     if (lightboxImg.complete && lightboxImg.naturalWidth > 0) {
@@ -572,6 +844,11 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     } else {
       lightboxImg.onload = function() { lightboxImg.classList.add('is-loaded'); };
     }
+
+    // Caption
+    lightboxCaptionTitle.textContent = imgData.title;
+    lightboxCaptionDesc.textContent = imgData.description;
+    lightboxCaptionLocation.textContent = imgData.location || '';
   }
 
   function lightboxGo(direction) {
@@ -583,7 +860,6 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
 
   // --- Event listeners ---
 
-  // Open: click en cualquier imagen de la galería
   document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
     img.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -593,15 +869,12 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     });
   });
 
-  // Close
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxBackdrop.addEventListener('click', closeLightbox);
 
-  // Nav arrows
   lightboxPrev.addEventListener('click', function() { lightboxGo(-1); });
   lightboxNext.addEventListener('click', function() { lightboxGo(1); });
 
-  // Keyboard: Escape, ← , →
   document.addEventListener('keydown', function(e) {
     if (!lightbox.classList.contains('is-open')) return;
     if (e.key === 'Escape') closeLightbox();
@@ -609,7 +882,7 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
     if (e.key === 'ArrowRight') lightboxGo(1);
   });
 
-  // Touch swipe en el lightbox (mobile/tablet)
+  // Touch swipe
   var lbTouchStartX = 0;
   var lbTouchStartY = 0;
 
@@ -621,10 +894,9 @@ const projectImagesMap = projects.map((p) => p.images.map((img) => img.src));
   lightbox.addEventListener('touchend', function(e) {
     var diffX = lbTouchStartX - e.changedTouches[0].screenX;
     var diffY = lbTouchStartY - e.changedTouches[0].screenY;
-    // Solo swipes horizontales (ignorar scroll vertical)
     if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 0) lightboxGo(1);   // swipe left → siguiente
-      else lightboxGo(-1);             // swipe right → anterior
+      if (diffX > 0) lightboxGo(1);
+      else lightboxGo(-1);
     }
   }, { passive: true });
 </script>
