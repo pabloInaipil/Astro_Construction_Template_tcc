@@ -120,8 +120,8 @@
   --bg-nav: rgba(44, 24, 16, 0.92);
 
   --text-heading: var(--color-surface-100);
-  --text-body: var(--color-steel-300);
-  --text-muted: var(--color-steel-400);
+  --text-body: var(--color-surface-100);
+  --text-muted: var(--color-surface-200);
   --text-inverse: var(--color-surface-950);
 
   --border-default: var(--color-surface-800);
