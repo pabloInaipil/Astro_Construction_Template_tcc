@@ -2,9 +2,12 @@
 // src/pages/gracias.astro
 // Página de confirmación post-envío del formulario de contacto.
 import Layout from '@layouts/Layout.astro';
+import { siteConfig } from '@config/site';
+
+const { whatsapp, whatsappMessage, name } = siteConfig;
 ---
 
-<Layout title="Mensaje Enviado — TodoCasa Construcciones" noindex={true}>
+<Layout title={`Mensaje Enviado — ${name}`} noindex={true}>
   <section class="min-h-[70vh] flex items-center justify-center px-4 pt-20">
     <div class="text-center max-w-lg">
       <!-- Check icon -->
@@ -29,7 +32,7 @@ import Layout from '@layouts/Layout.astro';
         <a href="/" class="btn-primary px-8 py-3">
           Volver al Inicio
         </a>
-        <a href="https://wa.me/56912345678?text=Hola,%20acabo%20de%20enviar%20una%20cotización%20por%20la%20web"
+        <a href={`https://wa.me/${whatsapp}?text=${encodeURIComponent('Hola, acabo de enviar una cotización por la web')}`}
           target="_blank" rel="noopener"
           class="btn-secondary px-8 py-3">
           Escribir por WhatsApp

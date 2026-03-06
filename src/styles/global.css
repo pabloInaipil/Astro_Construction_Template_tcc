@@ -2,67 +2,68 @@
 @import "tailwindcss";
 
 /* ============================================
-   TODOCASA CONSTRUCCIONES — Design Tokens
-   Paleta derivada del logo: tonos madera,
-   marrón cálido, ámbar dorado + acero.
+   MGI ESTRUCTURAS METÁLICAS — Design Tokens
+   Paleta derivada del logo: azul marino oscuro
+   (primary), naranja/cobre (accent) + grises
+   acero (steel/surface).
    ============================================ */
 
 @theme {
-  /* --- Colores primarios (marrón madera) --- */
-  --color-primary-50: #faf6f1;
-  --color-primary-100: #f0e6d8;
-  --color-primary-200: #e0cbb0;
-  --color-primary-300: #cba67e;
-  --color-primary-400: #b5834f;
-  --color-primary-500: #8B5E34;
-  --color-primary-600: #6B3A2A;
-  --color-primary-700: #5D3220;
-  --color-primary-800: #4A2718;
-  --color-primary-900: #3C1F12;
-  --color-primary-950: #2C1810;
+  /* --- Colores primarios (azul marino — texto "MGI") --- */
+  --color-primary-50: #f0f3f8;
+  --color-primary-100: #dce3ef;
+  --color-primary-200: #b9c7df;
+  --color-primary-300: #8da4c8;
+  --color-primary-400: #6280b0;
+  --color-primary-500: #3D5A8A;
+  --color-primary-600: #2B4470;
+  --color-primary-700: #233759;
+  --color-primary-800: #1E2D4D;
+  --color-primary-900: #172340;
+  --color-primary-950: #0F1729;
 
-  /* --- Colores acento (ámbar dorado) --- */
-  --color-accent-50: #fefbf3;
-  --color-accent-100: #fdf3dc;
-  --color-accent-200: #fae4b4;
-  --color-accent-300: #f5cf7f;
-  --color-accent-400: #e8b44e;
-  --color-accent-500: #C8944A;
-  --color-accent-600: #A87A3A;
-  --color-accent-700: #8A6230;
-  --color-accent-800: #6E4E28;
-  --color-accent-900: #5A4022;
+  /* --- Colores acento (naranja/cobre — ícono soldadora) --- */
+  --color-accent-50: #fef7f0;
+  --color-accent-100: #fdebd6;
+  --color-accent-200: #fad3a8;
+  --color-accent-300: #f4b06e;
+  --color-accent-400: #E88A3A;
+  --color-accent-500: #D4722C;
+  --color-accent-600: #B85E22;
+  --color-accent-700: #974C1D;
+  --color-accent-800: #7A3E1A;
+  --color-accent-900: #643418;
 
-  /* --- Colores acero (estructuras metálicas) --- */
-  --color-steel-50: #f8f9fa;
-  --color-steel-100: #eceef1;
-  --color-steel-200: #d5dae0;
-  --color-steel-300: #b0b9c4;
-  --color-steel-400: #8591a0;
-  --color-steel-500: #64707E;
-  --color-steel-600: #4F5966;
-  --color-steel-700: #414952;
-  --color-steel-800: #383E45;
-  --color-steel-900: #2D3238;
-  --color-steel-950: #1a1d21;
+  /* --- Colores acero (neutros fríos) --- */
+  --color-steel-50: #f8f9fb;
+  --color-steel-100: #eef0f4;
+  --color-steel-200: #d8dce4;
+  --color-steel-300: #b4bbc8;
+  --color-steel-400: #8892a4;
+  --color-steel-500: #687384;
+  --color-steel-600: #525b6a;
+  --color-steel-700: #434a56;
+  --color-steel-800: #3a3f49;
+  --color-steel-900: #2e3239;
+  --color-steel-950: #1c1f24;
 
-  /* --- Superficies & neutrales --- */
-  --color-surface-50: #FDFBF9;
-  --color-surface-100: #F7F3EF;
-  --color-surface-200: #EDE6DE;
-  --color-surface-300: #DDD3C7;
-  --color-surface-800: #2A2320;
-  --color-surface-900: #1E1916;
-  --color-surface-950: #141110;
+  /* --- Superficies & neutrales (grises fríos) --- */
+  --color-surface-50: #FAFBFC;
+  --color-surface-100: #F3F5F7;
+  --color-surface-200: #E5E8EC;
+  --color-surface-300: #D1D5DC;
+  --color-surface-800: #282D35;
+  --color-surface-900: #1C2028;
+  --color-surface-950: #12151A;
 
   /* --- Tipografía --- */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
 
-  /* --- Sombras personalizadas --- */
-  --shadow-soft: 0 2px 15px -3px rgba(107, 58, 42, 0.08), 0 4px 6px -4px rgba(107, 58, 42, 0.05);
-  --shadow-card: 0 4px 25px -5px rgba(107, 58, 42, 0.1), 0 8px 10px -6px rgba(107, 58, 42, 0.06);
-  --shadow-elevated: 0 10px 40px -10px rgba(107, 58, 42, 0.15), 0 20px 25px -12px rgba(107, 58, 42, 0.08);
+  /* --- Sombras personalizadas (tono azul marino) --- */
+  --shadow-soft: 0 2px 15px -3px rgba(30, 45, 77, 0.08), 0 4px 6px -4px rgba(30, 45, 77, 0.05);
+  --shadow-card: 0 4px 25px -5px rgba(30, 45, 77, 0.1), 0 8px 10px -6px rgba(30, 45, 77, 0.06);
+  --shadow-elevated: 0 10px 40px -10px rgba(30, 45, 77, 0.15), 0 20px 25px -12px rgba(30, 45, 77, 0.08);
 
   /* --- Animaciones --- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -93,7 +94,7 @@
    Variables CSS para tema claro / oscuro
    ============================================ */
 :root {
-  /* Tema claro (por defecto) — Fondo blanco */
+  /* Tema claro (por defecto) — Fondo blanco/gris frío */
   --bg-body: #FFFFFF;
   --bg-section-alt: var(--color-surface-100);
   --bg-card: #ffffff;
@@ -112,19 +113,19 @@
 }
 
 :root.dark {
-  /* Tema oscuro — Tonos café/marrón */
-  --bg-body: #2C1810;
-  --bg-section-alt: #3C1F12;
-  --bg-card: #4A2718;
-  --bg-card-hover: #3C1F12;
-  --bg-nav: rgba(44, 24, 16, 0.92);
+  /* Tema oscuro — Tonos azul marino profundo */
+  --bg-body: #0F1729;
+  --bg-section-alt: #172340;
+  --bg-card: #1E2D4D;
+  --bg-card-hover: #172340;
+  --bg-nav: rgba(15, 23, 41, 0.92);
 
   --text-heading: var(--color-surface-100);
-  --text-body: var(--color-surface-100);
-  --text-muted: var(--color-surface-200);
+  --text-body: var(--color-surface-200);
+  --text-muted: var(--color-steel-400);
   --text-inverse: var(--color-surface-950);
 
-  --border-default: var(--color-surface-800);
+  --border-default: var(--color-steel-800);
   --border-subtle: rgba(255, 255, 255, 0.06);
 
   color-scheme: dark;
@@ -205,6 +206,50 @@ a:hover {
 }
 
 /* ============================================
+   Form inputs
+   ============================================ */
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 0.375rem;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-default);
+  border-radius: 0.625rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: var(--color-steel-400);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent-500);
+  box-shadow: 0 0 0 3px rgba(212, 114, 44, 0.15);
+}
+
+:root.dark .form-input {
+  background-color: var(--color-primary-900);
+  border-color: var(--color-steel-700);
+}
+
+:root.dark .form-input:focus {
+  border-color: var(--color-accent-400);
+  box-shadow: 0 0 0 3px rgba(212, 114, 44, 0.2);
+}
+
+/* ============================================
    Utilidades personalizadas
    ============================================ */
 
@@ -237,6 +282,11 @@ a:hover {
 .reveal-stagger.is-visible > * {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Gallery hidden state */
+.project-card.is-hidden {
+  display: none;
 }
 
 /* Scrollbar personalizado */

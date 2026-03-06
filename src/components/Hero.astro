@@ -4,47 +4,15 @@
 // Cada slide puede tener: imagen de fondo, título grande y subtítulo.
 // Auto-rotación derecha→izquierda con dots de navegación.
 
+import { siteConfig } from '@config/site';
+
 interface HeroSlide {
-  /** Ruta de la imagen de fondo (en /public/) */
   image?: string;
-  /** Título grande del slide (ej: "Terrazas") */
   title: string;
-  /** Subtítulo opcional debajo del título */
   subtitle?: string;
 }
 
-// ============================================================
-// CONFIGURACIÓN DE SLIDES
-// Editar aquí para agregar/cambiar slides del hero.
-// Las imágenes van en /public/hero/ (crear la carpeta).
-// ============================================================
-const slides: HeroSlide[] = [
-  {
-    image: '/hero/slide-01.jpg',
-    title: 'TodoCasa\nConstrucciones',
-    subtitle: '«Tú lo imaginas, nosotros lo construimos»',
-  },
-  {
-    image: '/hero/slide-02.jpg',
-    title: 'Terrazas',
-    subtitle: '«Tú lo imaginas, nosotros lo construimos»',
-  },
-  {
-    image: '/hero/slide-03.jpg',
-    title: 'Quinchos',
-    subtitle: '«Tú lo imaginas, nosotros lo construimos»',
-  },
-  {
-    image: '/hero/slide-04.jpg',
-    title: 'Ampliaciones',
-    subtitle: '«Tú lo imaginas, nosotros lo construimos»',
-  },
-  {
-    image: '/hero/slide-05.jpg',
-    title: 'Piscinas',
-    subtitle: '«Tú lo imaginas, nosotros lo construimos»',
-  },
-];
+const slides: HeroSlide[] = siteConfig.heroSlides;
 
 // ============================================================
 // VIDEO DE FONDO (opcional)
@@ -52,41 +20,19 @@ const slides: HeroSlide[] = [
 // Peso ideal: < 5MB para carga rápida.
 // Si heroVideo está vacío, se usa solo el slider de imágenes.
 // ============================================================
-const heroVideo = '/hero/video-fondo.mp4';
-const heroVideoPoster = '/hero/slide-01.jpg';
+const heroVideo = '';
 ---
 
-<section id="inicio" class="hero-slider relative w-full overflow-hidden">
-
-  <!-- ===== VIDEO DE FONDO (capa más baja) ===== -->
-  <div class="hero-video-layer absolute inset-0 z-0">
-    <video
-      id="hero-video"
-      class="absolute inset-0 w-full h-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster={heroVideoPoster}
-    >
-      <source src={heroVideo} type="video/mp4" />
-      <!-- Agregar .webm como fallback -->
-      <!-- <source src="/hero/video-fondo.webm" type="video/webm" /> -->
-    </video>
-    <!-- Overlay oscuro sobre el video -->
-    <div class="absolute inset-0 bg-black/50"></div>
-  </div>
-
-  <!-- ===== SLIDER DE IMÁGENES (sobre el video) ===== -->
-  <div id="hero-track" class="hero-track absolute inset-0 z-10 flex transition-transform duration-700" style={`width: ${slides.length * 100}%;`}>
+<section class="hero-slider relative w-full overflow-hidden">
+  <!-- ===== SLIDER TRACK ===== -->
+  <div
+    id="hero-track"
+    class="hero-track flex transition-transform duration-700 ease-in-out"
+    style="width: 100%;"
+  >
     {slides.map((slide, i) => (
-      <div
-        class="hero-slide relative flex-shrink-0 flex items-center justify-center"
-        style={`width: ${100 / slides.length}%;`}
-        data-index={i}
-      >
-        <!-- Imagen de fondo del slide -->
+      <div class="hero-slide relative flex-shrink-0 w-full flex items-center justify-center" data-index={i}>
+        {/* Capa de imagen */}
         {slide.image && (
           <div class="absolute inset-0">
             <img
@@ -98,6 +44,19 @@ const heroVideoPoster = '/hero/slide-01.jpg';
               decoding={i === 0 ? 'sync' : 'async'}
               onerror="this.parentElement.style.display='none'"
             />
+          </div>
+        )}
+
+        {/* Capa de video (solo primer slide si hay video) */}
+        {i === 0 && heroVideo && (
+          <div class="hero-video-layer absolute inset-0 z-10">
+            <video
+              autoplay muted loop playsinline
+              class="w-full h-full object-cover"
+              onerror="this.dataset.error='true'"
+            >
+              <source src={heroVideo} type={heroVideo.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
+            </video>
           </div>
         )}
 
@@ -163,48 +122,47 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 </section>
 
 <style>
-  /* ===== Hero container — fix mobile viewport ===== */
   /* ===== Hero container — mobile-first responsive ===== */
-.hero-slider {
-  height: 65dvh;
-  min-height: 350px;
-  max-height: 500px;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
   .hero-slider {
-    height: 70dvh;
-    min-height: 450px;
-    max-height: 650px;
+    height: 65dvh;
+    min-height: 350px;
+    max-height: 500px;
   }
-}
 
-/* Desktop */
-@media (min-width: 1024px) {
-  .hero-slider {
-    height: 100dvh;
-    min-height: 600px;
-    max-height: none;
+  /* Tablet */
+  @media (min-width: 768px) {
+    .hero-slider {
+      height: 70dvh;
+      min-height: 450px;
+      max-height: 650px;
+    }
   }
-}
 
-@media (max-width: 767px) {
-  .hero-title {
-    font-size: clamp(1.6rem, 7vw, 3rem);
-    margin-bottom: 0.5rem;
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .hero-slider {
+      height: 100dvh;
+      min-height: 600px;
+      max-height: none;
+    }
   }
-  
-  .hero-subtitle {
-    font-size: 0.8rem;
-    margin-bottom: 1.2rem;
+
+  @media (max-width: 767px) {
+    .hero-title {
+      font-size: clamp(1.6rem, 7vw, 3rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-cta {
+      padding: 0.7rem 2rem;
+      font-size: 0.7rem;
+    }
   }
-  
-  .hero-cta {
-    padding: 0.7rem 2rem;
-    font-size: 0.7rem;
-  }
-}
 
   /* ===== Track y slides deben llenar el 100% del alto ===== */
   .hero-track {
@@ -267,7 +225,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     background: var(--color-accent-600);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(200, 148, 74, 0.35);
+    box-shadow: 0 8px 25px rgba(212, 114, 44, 0.35);
   }
 
   /* ===== Slide transition resets ===== */
@@ -294,7 +252,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ===== Arrows — más pequeñas en mobile ===== */
+  /* ===== Arrows ===== */
   .hero-arrow {
     position: absolute;
     top: 50%;
@@ -334,20 +292,20 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
   /* ===== Dots ===== */
   .hero-dots {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
-  display: flex;
-  gap: 0.6rem;
-}
-
-@media (min-width: 1024px) {
-  .hero-dots {
-    bottom: 4.5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    display: flex;
+    gap: 0.6rem;
   }
-}
+
+  @media (min-width: 1024px) {
+    .hero-dots {
+      bottom: 4.5rem;
+    }
+  }
 
   .hero-dot {
     width: 10px;
@@ -379,116 +337,83 @@ const heroVideoPoster = '/hero/slide-01.jpg';
   // ============================================================
   // HERO SLIDER — Auto-rotate + navigation
   // ============================================================
-  const track = document.getElementById('hero-track') as HTMLElement;
-  const dots = document.querySelectorAll<HTMLButtonElement>('.hero-dot');
+  const track = document.getElementById('hero-track');
+  const slides = track?.querySelectorAll('.hero-slide') || [];
+  const dots = document.querySelectorAll('.hero-dot');
   const prevBtn = document.getElementById('hero-prev');
   const nextBtn = document.getElementById('hero-next');
-  const slides = document.querySelectorAll<HTMLElement>('.hero-slide');
-  const totalSlides = slides.length;
 
-  let currentSlide = 0;
-  let autoplayTimer: ReturnType<typeof setInterval>;
-  const AUTOPLAY_INTERVAL = 5000; // 5 segundos por slide
+  let current = 0;
+  let autoplayInterval: ReturnType<typeof setInterval>;
+  const AUTOPLAY_DELAY = 6000;
 
-  function goToSlide(index: number, animate = true) {
-    if (index < 0) index = totalSlides - 1;
-    if (index >= totalSlides) index = 0;
+  function goToSlide(index: number) {
+    if (!track || slides.length === 0) return;
 
-    // Reset content animations for current slide
-    const currentContent = slides[currentSlide]?.querySelector('.hero-slide-content');
-    currentContent?.classList.remove('animating');
+    // Fade out current content
+    const currentContent = slides[current]?.querySelector('.hero-slide-content');
     currentContent?.classList.add('transitioning');
+    currentContent?.classList.remove('animating');
 
-    currentSlide = index;
-
-    // Move track
-    if (animate) {
-      track.style.transition = 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
-    } else {
-      track.style.transition = 'none';
-    }
-    track.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
+    current = ((index % slides.length) + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
 
     // Update dots
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
 
-    // Trigger content animation for new slide
-    const newContent = slides[index]?.querySelector('.hero-slide-content');
-    if (newContent) {
-      newContent.classList.remove('animating');
-      newContent.classList.add('transitioning');
-      // Force reflow
-      void (newContent as HTMLElement).offsetWidth;
-      newContent.classList.remove('transitioning');
-      newContent.classList.add('animating');
-    }
+    // Fade in new content
+    setTimeout(() => {
+      const newContent = slides[current]?.querySelector('.hero-slide-content');
+      newContent?.classList.remove('transitioning');
+      newContent?.classList.add('animating');
+    }, 400);
   }
 
-  function nextSlide() { goToSlide(currentSlide + 1); }
-  function prevSlide() { goToSlide(currentSlide - 1); }
+  function nextSlide() { goToSlide(current + 1); }
+  function prevSlide() { goToSlide(current - 1); }
 
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
-  }
-
-  function stopAutoplay() {
-    if (autoplayTimer) clearInterval(autoplayTimer);
+  function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
   }
 
   // Event listeners
-  nextBtn?.addEventListener('click', () => { nextSlide(); startAutoplay(); });
-  prevBtn?.addEventListener('click', () => { prevSlide(); startAutoplay(); });
+  prevBtn?.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+  nextBtn?.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
 
   dots.forEach((dot) => {
     dot.addEventListener('click', () => {
-      goToSlide(Number(dot.dataset.slide));
-      startAutoplay();
+      const index = parseInt((dot as HTMLElement).dataset.slide || '0', 10);
+      goToSlide(index);
+      resetAutoplay();
     });
   });
 
-  // Pause on hover
-  const heroSection = document.querySelector('.hero-slider');
-  heroSection?.addEventListener('mouseenter', stopAutoplay);
-  heroSection?.addEventListener('mouseleave', startAutoplay);
-
-  // Touch swipe support
+  // Touch/swipe support
   let touchStartX = 0;
   let touchEndX = 0;
 
-  heroSection?.addEventListener('touchstart', (e) => {
+  track?.addEventListener('touchstart', (e) => {
     touchStartX = (e as TouchEvent).changedTouches[0].screenX;
-    stopAutoplay();
   }, { passive: true });
 
-  heroSection?.addEventListener('touchend', (e) => {
+  track?.addEventListener('touchend', (e) => {
     touchEndX = (e as TouchEvent).changedTouches[0].screenX;
     const diff = touchStartX - touchEndX;
     if (Math.abs(diff) > 50) {
-      if (diff > 0) nextSlide(); else prevSlide();
+      if (diff > 0) nextSlide();
+      else prevSlide();
+      resetAutoplay();
     }
-    startAutoplay();
   }, { passive: true });
 
-  // Keyboard
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') { nextSlide(); startAutoplay(); }
-    if (e.key === 'ArrowLeft') { prevSlide(); startAutoplay(); }
-  });
+  // Start autoplay
+  autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
 
-  // Video error handling — hide video layer if no video found
-  const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
-  heroVideo?.addEventListener('error', () => {
-    heroVideo.dataset.error = 'true';
-    heroVideo.closest('.hero-video-layer')?.classList.add('hidden');
-  });
-
-  // If video source fails
-  heroVideo?.querySelector('source')?.addEventListener('error', () => {
-    heroVideo.dataset.error = 'true';
-    heroVideo.closest('.hero-video-layer')?.classList.add('hidden');
-  });
-
-  // Start
-  startAutoplay();
+  // Pause on hover (desktop)
+  const heroSection = track?.closest('.hero-slider');
+  heroSection?.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+  heroSection?.addEventListener('mouseleave', () => { autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY); });
 </script>

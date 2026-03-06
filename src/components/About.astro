@@ -1,29 +1,10 @@
 ---
 // src/components/About.astro
-// Sección "Nosotros" con layout split: contenido + imagen/visual
+// Sección "Sobre Nosotros" — MGI Estructuras Metálicas
 
-const features = [
-  {
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-    title: 'Calidad Garantizada',
-    description: 'Trabajamos con materiales certificados y mano de obra especializada para asegurar la durabilidad de cada proyecto.',
-  },
-  {
-    icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
-    title: 'Puntualidad',
-    description: 'Respetamos los plazos acordados. Planificamos cada etapa para entregar en tiempo y forma.',
-  },
-  {
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-    title: 'Equipo Profesional',
-    description: 'Nuestro equipo combina experiencia técnica con pasión por la construcción bien hecha.',
-  },
-  {
-    icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
-    title: 'Presupuesto Transparente',
-    description: 'Cotizaciones detalladas sin costos ocultos. Sabes exactamente qué estás pagando desde el primer día.',
-  },
-];
+import { siteConfig } from '@config/site';
+
+const { about } = siteConfig;
 ---
 
 <section id="nosotros" class="py-20 lg:py-28" style="background-color: var(--bg-section-alt);">
@@ -34,10 +15,10 @@ const features = [
       <div class="relative reveal">
         <div class="relative rounded-2xl overflow-hidden aspect-[4/3]"
           style="background: linear-gradient(135deg, var(--color-primary-200), var(--color-accent-200));">
-          <!-- Placeholder: reemplazar con foto real del equipo o taller -->
+          <!-- Reemplazar con foto real del equipo o taller -->
           <img
             src="/proyectos/equipo.jpg"
-            alt="Equipo TodoCasa Construcciones"
+            alt={`Equipo ${siteConfig.name}`}
             loading="lazy"
             class="absolute inset-0 w-full h-full object-cover"
             onerror="this.style.display='none'"
@@ -54,7 +35,7 @@ const features = [
         <div class="absolute -bottom-6 -right-4 sm:-right-6 p-5 rounded-xl shadow-elevated"
           style="background-color: var(--color-primary-600);"
         >
-          <div class="text-3xl font-heading font-extrabold text-white">10+</div>
+          <div class="text-3xl font-heading font-extrabold text-white">{about.yearsExperience}</div>
           <div class="text-sm text-primary-200 font-medium">Años de<br/>experiencia</div>
         </div>
       </div>
@@ -66,18 +47,14 @@ const features = [
         </span>
         <h2 class="section-title mb-5">
           Construimos con <br class="hidden sm:block" />
-          compromiso y experiencia
+          la solidez del acero
         </h2>
-        <p class="text-base leading-relaxed mb-8" style="color: var(--text-body);">
-          En <strong style="color: var(--text-heading);">TodoCasa Construcciones</strong> nos dedicamos
-          a la construcción de ampliaciones, quinchos, terrazas y piscinas con los más altos estándares de calidad.
-          Nuestro equipo de profesionales trabaja junto a cada cliente para materializar sus proyectos
-          y crear los espacios que siempre soñaron.
+        <p class="text-base leading-relaxed mb-8" style="color: var(--text-body);" set:html={about.description}>
         </p>
 
         <!-- Feature list -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {features.map((feature) => (
+          {about.features.map((feature) => (
             <div class="flex gap-3">
               <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
                 style="background-color: var(--color-accent-100);"
