@@ -1,11 +1,6 @@
 {
-  "name": "TodoCasa Construcciones",
-  "short_name": "TodoCasa",
-  "description": "Construcción de ampliaciones, quinchos, terrazas y piscinas con terminaciones de alto estándar.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#6B3A2A",
+  "name": "MGI Estructuras Metálicas",
+  "short_name": "MGI",
   "icons": [
     {
       "src": "/favicon-32x32.png",
@@ -17,5 +12,8 @@
       "sizes": "180x180",
       "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#1E2D4D",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
