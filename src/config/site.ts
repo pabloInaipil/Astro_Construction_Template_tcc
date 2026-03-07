@@ -84,7 +84,7 @@ export const siteConfig = {
   categories: [
     { id: 'todos', label: 'Todos' },
     { id: 'galpones', label: 'Galpones' },
-    { id: 'casas', label: 'Casas' },
+    { id: 'casasmetal', label: 'Casas Metálicas' },
     { id: 'rejas', label: 'Rejas y Cierres' },
     { id: 'portones', label: 'Portones' },
   ],
@@ -103,27 +103,27 @@ export const siteConfig = {
   // ← CAMBIAR con fotos reales de MGI
   heroSlides: [
     {
-      image: '/hero/slide-01.jpg',
+      image: '/hero/slide-01.jpeg',
       title: 'MGI\nEstructuras Metálicas',
       subtitle: '«Fabricamos tu proyecto con la solidez del acero»',
     },
     {
-      image: '/hero/slide-02.jpg',
+      image: '/hero/slide-02.jpeg',
       title: 'Galpones',
       subtitle: '«Fabricamos tu proyecto con la solidez del acero»',
     },
     {
-      image: '/hero/slide-03.jpg',
+      image: '/hero/slide-03.jpeg',
       title: 'Casas Metálicas',
       subtitle: '«Fabricamos tu proyecto con la solidez del acero»',
     },
     {
-      image: '/hero/slide-04.jpg',
+      image: '/hero/slide-04.jpeg',
       title: 'Rejas y Cierres',
       subtitle: '«Fabricamos tu proyecto con la solidez del acero»',
     },
     {
-      image: '/hero/slide-05.jpg',
+      image: '/hero/slide-05.jpeg',
       title: 'Portones',
       subtitle: '«Fabricamos tu proyecto con la solidez del acero»',
     },

@@ -4,6 +4,8 @@
 // Cada imagen tiene su propio título, descripción y ubicación.
 // Al navegar el carrusel, la info de la tarjeta y del lightbox se actualiza.
 
+import { siteConfig } from '@config/site';
+
 interface ProjectImage {
   src: string;
   alt: string;
@@ -17,259 +19,215 @@ interface Project {
   images: ProjectImage[];
 }
 
-const categories = [
-  { id: 'todos', label: 'Todos' },
-  { id: 'ampliaciones', label: 'Ampliaciones' },
-  { id: 'quinchos', label: 'Quinchos' },
-  { id: 'terrazas', label: 'Terrazas' },
-  { id: 'piscinas', label: 'Piscinas' },
-];
+const { categories } = siteConfig;
 
 // ============================================================
-// CATÁLOGO DE PROYECTOS
+// CATÁLOGO DE PROYECTOS — MGI Estructuras Metálicas
 // Para agregar un proyecto nuevo, copia un bloque { category, images }
 // y edita los campos. Cada imagen lleva su propio título/descripción.
 // ============================================================
 const projects: Project[] = [
+  // ── GALPONES — Proyecto 1 ─────────────────────────────────
   {
-    category: 'ampliaciones',
+    category: 'galpones',
     images: [
       {
-        src: '/proyectos/ampliaciones/ampliaciones.webp',
-        alt: 'Ampliación estructura inicial',
-        title: 'Ampliación Dormitorio + Baño',
-        description: 'Ampliación de 25m² con estructura metalcom, aislación térmica y terminaciones de alto estándar.',
-        location: 'Puente Alto, Santiago',
+        src: '/proyectos/galpones/galpones1.jpeg',
+        alt: 'Galpón estructura metálica en construcción',
+        title: 'Galpón Industrial — Estructura',
+        description: 'Montaje de estructura de acero para galpón industrial con cerchas metálicas de alta resistencia.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/ampliaciones/ampliaciones2.webp',
-        alt: 'Ampliación avance de obra',
-        title: 'Avance de Obra — Estructura',
-        description: 'Montaje de estructura metalcom con aislación térmica e impermeabilización.',
-        location: 'Puente Alto, Santiago',
+        src: '/proyectos/galpones/galpones2.jpeg',
+        alt: 'Galpón avance de obra',
+        title: 'Avance de Obra — Columnas',
+        description: 'Instalación de columnas y vigas principales con soldaduras certificadas.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/ampliaciones/ampliacione3.webp',
-        alt: 'Ampliación terminada exterior',
-        title: 'Exterior Terminado',
-        description: 'Vista exterior con revestimiento de fibrocemento y ventanas de termopanel.',
-        location: 'Puente Alto, Santiago',
+        src: '/proyectos/galpones/galpones3.jpeg',
+        alt: 'Galpón estructura de cerchas',
+        title: 'Cerchas Metálicas',
+        description: 'Detalle de cerchas metálicas diseñadas para máxima resistencia y luz libre.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/ampliaciones/ampliacione4.webp',
-        alt: 'Ampliación terminada interior',
+        src: '/proyectos/galpones/galpones4.jpeg',
+        alt: 'Galpón vista interior estructura',
+        title: 'Vista Interior — Estructura',
+        description: 'Espacio interior del galpón con estructura completa lista para cubierta.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/galpones/galpones5.jpeg',
+        alt: 'Galpón cubierta instalada',
+        title: 'Instalación de Cubierta',
+        description: 'Montaje de cubierta metálica con aislación térmica y canaletas de evacuación.',
+        location: 'Santiago',
+      },
+    ],
+  },
+  // ── GALPONES — Proyecto 2 ─────────────────────────────────
+  {
+    category: 'galpones',
+    images: [
+      {
+        src: '/proyectos/galpones/galpones6.jpeg',
+        alt: 'Galpón terminado exterior',
+        title: 'Galpón Nave Industrial',
+        description: 'Nave industrial terminada con revestimiento metálico y portón de acceso vehicular.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/galpones/galpones7.jpeg',
+        alt: 'Galpón interior terminado',
         title: 'Interior Terminado',
-        description: 'Dormitorio con piso flotante, cielo americano y baño completo.',
-        location: 'Puente Alto, Santiago',
+        description: 'Vista interior con iluminación natural, piso industrial y altura libre óptima.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/galpones/galpones8.jpeg',
+        alt: 'Galpón detalle estructura',
+        title: 'Detalle Estructural',
+        description: 'Uniones soldadas y empernadas con acabado anticorrosivo.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/galpones/galpones9.jpeg',
+        alt: 'Galpón vista lateral',
+        title: 'Vista Lateral',
+        description: 'Perfil lateral del galpón con ventilación natural integrada.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/galpones/galpones10.jpeg',
+        alt: 'Galpón terminado vista general',
+        title: 'Galpón Terminado',
+        description: 'Vista general del proyecto finalizado con accesos y terminaciones completas.',
+        location: 'Santiago',
       },
     ],
   },
+  // ── CASAS METÁLICAS ───────────────────────────────────────
   {
-    category: 'ampliaciones',
+    category: 'casasmetal',
     images: [
       {
-        src: '/proyectos/ampliaciones/ampliaciones3.webp',
-        alt: 'Living comedor estructura',
-        title: 'Ampliación Living Comedor',
-        description: 'Extensión de 30m² con ventanales de termopanel, piso flotante y cielo americano.',
-        location: 'La Florida, Santiago',
+        src: '/proyectos/casasmetal/casasmetal1.jpeg',
+        alt: 'Casa metálica estructura inicial',
+        title: 'Casa Metálica — Estructura',
+        description: 'Montaje de estructura de acero liviano para vivienda con diseño moderno.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/ampliaciones/ampliaciones4.webp',
-        alt: 'Living comedor avance',
-        title: 'Avance — Estructura Metálica',
-        description: 'Montaje de estructura y cubierta con aislación térmica.',
-        location: 'La Florida, Santiago',
+        src: '/proyectos/casasmetal/casasmetal2.jpeg',
+        alt: 'Casa metálica avance de obra',
+        title: 'Avance de Obra',
+        description: 'Instalación de perfilería metálica y preparación para revestimientos.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/ampliaciones/ampliacion-02c.jpg',
-        alt: 'Living comedor terminado',
-        title: 'Living Comedor Terminado',
-        description: 'Espacio terminado con ventanales de termopanel y piso flotante.',
-        location: 'La Florida, Santiago',
+        src: '/proyectos/casasmetal/casasmetal3.jpeg',
+        alt: 'Casa metálica cerramientos',
+        title: 'Cerramientos y Revestimiento',
+        description: 'Colocación de revestimientos exteriores sobre estructura metálica.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/casasmetal/casasmetal4.jpeg',
+        alt: 'Casa metálica avance exterior',
+        title: 'Avance Exterior',
+        description: 'Vista exterior con avance de cubierta y terminaciones de fachada.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/casasmetal/casasmetal5.jpeg',
+        alt: 'Casa metálica terminada',
+        title: 'Casa Terminada',
+        description: 'Vivienda finalizada con estructura metálica, terminaciones completas y lista para habitar.',
+        location: 'Santiago',
       },
     ],
   },
+  // ── REJAS Y CIERRES ──────────────────────────────────────
   {
-    category: 'quinchos',
+    category: 'rejas',
     images: [
       {
-        src: '/proyectos/quinchos/quinchos4.webp',
-        alt: 'Quincho vista general',
-        title: 'Quincho Familiar con Parrilla',
-        description: 'Quincho cerrado con parrilla de ladrillo refractario, mesón de granito y bar integrado.',
-        location: 'Las Condes, Santiago',
+        src: '/proyectos/rejas/rejas1.jpeg',
+        alt: 'Reja de seguridad residencial',
+        title: 'Reja de Seguridad Residencial',
+        description: 'Reja perimetral de acero con diseño funcional y acabado anticorrosivo.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/quinchos/quinchos2.jpg',
-        alt: 'Quincho detalle parrilla',
-        title: 'Detalle Parrilla y Mesón',
-        description: 'Parrilla de ladrillo refractario con mesón de granito integrado.',
-        location: 'Las Condes, Santiago',
+        src: '/proyectos/rejas/rejas2.jpeg',
+        alt: 'Reja cierre perimetral',
+        title: 'Cierre Perimetral',
+        description: 'Instalación de cierre perimetral metálico para propiedad residencial.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/quinchos/quincho-01c.jpg',
-        alt: 'Quincho mesón y bar',
-        title: 'Bar Integrado',
-        description: 'Mesón de granito con lavaplatos y estantería de madera nativa.',
-        location: 'Las Condes, Santiago',
+        src: '/proyectos/rejas/rejas3.jpeg',
+        alt: 'Reja protección ventanas',
+        title: 'Protección de Ventanas',
+        description: 'Rejas de seguridad para ventanas con diseño integrado a la fachada.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/quinchos/quincho-01d.jpg',
-        alt: 'Quincho terminado nocturno',
-        title: 'Vista Nocturna',
-        description: 'Iluminación LED cálida integrada en cielo de madera.',
-        location: 'Las Condes, Santiago',
+        src: '/proyectos/rejas/rejas4.jpeg',
+        alt: 'Reja decorativa',
+        title: 'Reja con Diseño',
+        description: 'Reja combinando seguridad y estética con acabado pintado al horno.',
+        location: 'Santiago',
+      },
+      {
+        src: '/proyectos/rejas/rejas5.jpeg',
+        alt: 'Reja terminada instalada',
+        title: 'Reja Instalada',
+        description: 'Proyecto terminado con reja perimetral y portón de acceso peatonal.',
+        location: 'Santiago',
       },
     ],
   },
+  // ── PORTONES ──────────────────────────────────────────────
   {
-    category: 'quinchos',
+    category: 'portones',
     images: [
       {
-        src: '/proyectos/quinchos/quichos1.webp',
-        alt: 'Quincho abierto estructura',
-        title: 'Quincho Abierto con Cobertizo',
-        description: 'Espacio abierto con estructura metálica, techo de madera y zona de asador.',
-        location: 'Ñuñoa, Santiago',
+        src: '/proyectos/portones/portones1.jpeg',
+        alt: 'Portón corredero metálico',
+        title: 'Portón Corredero',
+        description: 'Portón corredero de acero con sistema de rieles y acabado en madera.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/quinchos/quinchos3.webp',
-        alt: 'Quincho abierto detalle techo',
-        title: 'Detalle Techo de Madera',
-        description: 'Estructura metálica con cubierta de madera tratada y barniz marino.',
-        location: 'Ñuñoa, Santiago',
+        src: '/proyectos/portones/portones2.jpeg',
+        alt: 'Portón batiente',
+        title: 'Portón Batiente',
+        description: 'Portón de acceso vehicular con estructura reforzada y bisagras industriales.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/quinchos/quincho-02c.jpg',
-        alt: 'Quincho abierto terminado',
-        title: 'Quincho Abierto Terminado',
-        description: 'Espacio completo con asador, mesón y área de estar.',
-        location: 'Ñuñoa, Santiago',
-      },
-    ],
-  },
-  {
-    category: 'terrazas',
-    images: [
-      {
-        src: '/proyectos/terrazas/terraza-edi-1.webp',
-        alt: 'Terraza techada vista general',
-        title: 'Terraza Techada con Policarbonato',
-        description: 'Estructura metálica con techo de policarbonato alveolar, iluminación LED integrada y deck de madera.',
-        location: 'Vitacura, Santiago',
+        src: '/proyectos/portones/portones3.jpeg',
+        alt: 'Portón con revestimiento',
+        title: 'Portón con Revestimiento',
+        description: 'Portón metálico con revestimiento decorativo y acabado premium.',
+        location: 'Santiago',
       },
       {
-        src: '/proyectos/terrazas/terrazas-header.webp',
-        alt: 'Terraza techada detalle techo',
-        title: 'Detalle Policarbonato',
-        description: 'Techo de policarbonato alveolar con estructura de acero pintado al horno.',
-        location: 'Vitacura, Santiago',
-      },
-      {
-        src: '/proyectos/terrazas/terraza-01c.jpg',
-        alt: 'Terraza techada vista interior',
-        title: 'Vista Interior',
-        description: 'Espacio bajo techo con iluminación natural filtrada.',
-        location: 'Vitacura, Santiago',
-      },
-      {
-        src: '/proyectos/terrazas/terraza-01d.jpg',
-        alt: 'Terraza techada iluminación',
-        title: 'Iluminación LED',
-        description: 'Sistema de iluminación LED cálida integrada en la estructura.',
-        location: 'Vitacura, Santiago',
-      },
-    ],
-  },
-  {
-    category: 'terrazas',
-    images: [
-      {
-        src: '/proyectos/terrazas/terraza3.webp',
-        alt: 'Pérgola vista general',
-        title: 'Pérgola Metálica Jardín',
-        description: 'Pérgola decorativa con estructura de acero, enredaderas y mobiliario de exterior.',
-        location: 'Lo Barnechea, Santiago',
-      },
-      {
-        src: '/proyectos/terrazas/terraza1.webp',
-        alt: 'Pérgola detalle estructura',
-        title: 'Detalle Estructura de Acero',
-        description: 'Perfiles de acero soldados y pintados al horno con acabado mate.',
-        location: 'Lo Barnechea, Santiago',
-      },
-      {
-        src: '/proyectos/terrazas/terraza-02c.jpg',
-        alt: 'Pérgola terminada',
-        title: 'Pérgola Terminada',
-        description: 'Vista final con enredaderas y mobiliario de exterior integrado.',
-        location: 'Lo Barnechea, Santiago',
-      },
-    ],
-  },
-  {
-    category: 'piscinas',
-    images: [
-      {
-        src: '/proyectos/piscinas/piscinas_header.webp',
-        alt: 'Piscina excavación',
-        title: 'Piscina Residencial 8x4m',
-        description: 'Piscina de hormigón proyectado con revestimiento en palmeta, iluminación subacuática y deck perimetral.',
-        location: 'La Reina, Santiago',
-      },
-      {
-        src: '/proyectos/piscinas/piscinas.webp',
-        alt: 'Piscina estructura hormigón',
-        title: 'Estructura de Hormigón',
-        description: 'Hormigón proyectado con malla de acero y sistema de filtración integrado.',
-        location: 'La Reina, Santiago',
-      },
-      {
-        src: '/proyectos/piscinas/piscina-01c.jpg',
-        alt: 'Piscina revestimiento',
-        title: 'Revestimiento en Palmeta',
-        description: 'Instalación de palmeta cerámica antideslizante en interior y bordes.',
-        location: 'La Reina, Santiago',
-      },
-      {
-        src: '/proyectos/piscinas/piscina-01d.jpg',
-        alt: 'Piscina terminada',
-        title: 'Piscina Terminada',
-        description: 'Vista final con deck de madera, iluminación y paisajismo.',
-        location: 'La Reina, Santiago',
-      },
-    ],
-  },
-  {
-    category: 'piscinas',
-    images: [
-      {
-        src: '/proyectos/piscinas/piscinas1.webp',
-        alt: 'Piscina jacuzzi obra gruesa',
-        title: 'Piscina con Jacuzzi Integrado',
-        description: 'Piscina temperada con zona de jacuzzi, cascada decorativa y cerco de vidrio templado.',
-        location: 'Chicureo, Santiago',
-      },
-      {
-        src: '/proyectos/piscinas/piscinas2.webp',
-        alt: 'Piscina jacuzzi avance',
-        title: 'Avance — Jacuzzi y Cascada',
-        description: 'Montaje de sistema de jacuzzi con cascada de agua temperada.',
-        location: 'Chicureo, Santiago',
-      },
-      {
-        src: '/proyectos/piscinas/piscina-02c.jpg',
-        alt: 'Piscina jacuzzi terminada',
-        title: 'Piscina + Jacuzzi Terminada',
-        description: 'Vista final con cerco de vidrio templado y paisajismo premium.',
-        location: 'Chicureo, Santiago',
+        src: '/proyectos/portones/portones4.jpeg',
+        alt: 'Portón terminado instalado',
+        title: 'Portón Terminado',
+        description: 'Portón instalado con acabado final, pintura y herrajes completos.',
+        location: 'Santiago',
       },
     ],
   },
 ];
 
-// Mapa para el lightbox — ahora incluye metadata por imagen
+// Mapa para el lightbox — incluye metadata por imagen
 const projectImagesMap = projects.map((p) =>
   p.images.map((img) => ({
     src: img.src,
@@ -291,7 +249,7 @@ const projectImagesMap = projects.map((p) =>
         Nuestros Proyectos
       </h2>
       <p class="section-subtitle mx-auto">
-        Cada proyecto refleja nuestro compromiso con la calidad y los detalles.
+        Cada proyecto refleja nuestro compromiso con la calidad y la solidez del acero.
       </p>
     </div>
 
@@ -446,7 +404,7 @@ const projectImagesMap = projects.map((p) =>
   .carousel-track::-webkit-scrollbar { display: none; }
   .filter-btn { color: var(--text-muted); }
   .filter-btn:hover { color: var(--text-heading); background-color: var(--bg-card); }
-  .filter-btn[aria-pressed='true'] { background-color: var(--color-primary-600); color: white; box-shadow: 0 2px 8px rgba(107, 58, 42, 0.25); }
+  .filter-btn[aria-pressed='true'] { background-color: var(--color-primary-600); color: white; box-shadow: 0 2px 8px rgba(30, 45, 77, 0.25); }
   .project-card.is-hidden { opacity: 0; transform: scale(0.95); position: absolute; pointer-events: none; height: 0; overflow: hidden; margin: 0; padding: 0; border: none; }
   @media (hover: none) { .carousel-prev, .carousel-next { opacity: 0.8 !important; } }
 
@@ -833,7 +791,6 @@ const projectImagesMap = projects.map((p) =>
     var imgData = currentProjectImages[currentLightboxIndex];
     if (!imgData) return;
 
-    // Imagen
     lightboxImg.classList.remove('is-loaded');
     lightboxImg.src = imgData.src;
     lightboxImg.alt = imgData.title;
@@ -845,7 +802,6 @@ const projectImagesMap = projects.map((p) =>
       lightboxImg.onload = function() { lightboxImg.classList.add('is-loaded'); };
     }
 
-    // Caption
     lightboxCaptionTitle.textContent = imgData.title;
     lightboxCaptionDesc.textContent = imgData.description;
     lightboxCaptionLocation.textContent = imgData.location || '';
@@ -859,7 +815,6 @@ const projectImagesMap = projects.map((p) =>
   }
 
   // --- Event listeners ---
-
   document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
     img.addEventListener('click', function(e) {
       e.stopPropagation();
