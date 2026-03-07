@@ -28,10 +28,12 @@ const { siteUrl } = siteConfig;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
 // Redes sociales (filtrar vacías)
-const activeSocials = Object.entries(siteConfig.social).filter(([_, url]) => url);
+const activeSocials = Object.entries(siteConfig.social)
+  .filter(([_key, url]) => url)
+  .map(([_key, url]) => url);
 
 // JSON-LD — LocalBusiness
-const jsonLd = {
+const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: siteConfig.name,
@@ -43,7 +45,7 @@ const jsonLd = {
   email: siteConfig.email,
   address: {
     '@type': 'PostalAddress',
-    ...(siteConfig.address.street && { streetAddress: siteConfig.address.street }),
+    ...(siteConfig.address.street ? { streetAddress: siteConfig.address.street } : {}),
     addressLocality: siteConfig.address.city,
     addressRegion: siteConfig.address.region,
     addressCountry: siteConfig.address.country,
@@ -52,9 +54,7 @@ const jsonLd = {
     '@type': 'Country',
     name: 'Chile',
   },
-  ...(activeSocials.length > 0 && {
-    sameAs: activeSocials.map(([_, url]) => url),
-  }),
+  ...(activeSocials.length > 0 ? { sameAs: activeSocials } : {}),
   priceRange: '$$',
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
@@ -462,16 +462,16 @@ const waUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(si
           header?.classList.add('shadow-md');
           if (header) {
             header.style.backgroundColor = 'var(--bg-nav)';
-            header.style.backdropFilter = 'blur(14px)';
-            header.style.webkitBackdropFilter = 'blur(14px)';
+            header.style.setProperty('backdrop-filter', 'blur(14px)');
+            header.style.setProperty('-webkit-backdrop-filter', 'blur(14px)');
           }
         } else {
           header?.classList.add('at-top');
           header?.classList.remove('shadow-md');
           if (header) {
             header.style.backgroundColor = 'transparent';
-            header.style.backdropFilter = 'none';
-            header.style.webkitBackdropFilter = 'none';
+            header.style.setProperty('backdrop-filter', 'none');
+            header.style.setProperty('-webkit-backdrop-filter', 'none');
           }
         }
 
