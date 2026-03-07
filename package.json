@@ -1,8 +1,8 @@
 {
-  "name": "todocasa-construcciones",
+  "name": "mgi-estructuras-metalicas",
   "type": "module",
   "version": "1.0.0",
-  "description": "Landing page para TodoCasa Construcciones — Ampliaciones, quinchos, terrazas y piscinas.",
+  "description": "Landing page para MGI Estructuras Metálicas — Galpones, casas, rejas y portones.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

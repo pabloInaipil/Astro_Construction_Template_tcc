@@ -15,7 +15,7 @@ export const siteConfig = {
 
   // ── URL ────────────────────────────────────────────────────
   // ← CAMBIAR al dominio real cuando esté configurado en Cloudflare
-  siteUrl: 'https://mgi-estructuras.pages.dev',
+  siteUrl: 'https://mgiestructurasmetalicas.cl',
 
   // ── Contacto ───────────────────────────────────────────────
   phone: '+56987680364',
