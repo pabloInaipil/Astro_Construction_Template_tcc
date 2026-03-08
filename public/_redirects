@@ -1,0 +1,9 @@
+# _redirects — TodoCasa Construcciones (Cloudflare Pages)
+# Formato: from  to  statusCode
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Redirect index.html → raíz
+/index.html  /  301
+
+# Redirect www → sin www (descomentar cuando se configure dominio)
+# https://www.todocasaconstrucciones.cl/*  https://todocasaconstrucciones.cl/:splat  301

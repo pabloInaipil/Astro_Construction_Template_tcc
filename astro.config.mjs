@@ -7,7 +7,7 @@ export default defineConfig({
   // ⚠️ CAMBIAR A DOMINIO FINAL cuando se configure DNS:
   // site: 'https://todocasa.cl',
   // site: 'https://todocasaconstrucciones.cl',
-  site: 'https://todocasa-construcciones.netlify.app',
+  site: 'https://todocasaconstrucciones.cl',
 
   integrations: [
     sitemap(),
