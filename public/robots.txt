@@ -1,6 +1,5 @@
+# public/robots.txt
 User-agent: *
 Allow: /
 
-Sitemap: https://todocasa-construcciones.netlify.app/sitemap-index.xml
-
-// Sitemap: https://todocasaconstrucciones.cl/sitemap-index.xml
+Sitemap: https://mgiestructurasmetalicas.cl/sitemap-index.xml
