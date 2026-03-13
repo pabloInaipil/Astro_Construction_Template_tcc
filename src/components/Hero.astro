@@ -4,9 +4,11 @@
 // Cada slide puede tener: imagen de fondo, título grande y subtítulo.
 // Auto-rotación derecha→izquierda con dots de navegación.
 //
-// FIX v2: background-color usa var(--bg-body) para fundirse con el sitio,
-//         video-layer oculto por CSS por defecto (se muestra solo si video carga),
-//         max-height restaurado para que el slider cubra más.
+// FIX v3 DEFINITIVO:
+// - Imágenes aplicadas como background-image inline (NO <img> + object-cover).
+//   background-size:cover es a prueba de balas y garantiza cobertura total.
+// - Cada slide tiene background-color oscuro de fallback antes de cargar imagen.
+// - Video layer oculto por CSS, se muestra solo si el video carga OK.
 
 interface HeroSlide {
   /** Ruta de la imagen de fondo (en /public/) */
@@ -76,36 +78,29 @@ const heroVideoPoster = '/hero/slide-01.jpg';
       poster={heroVideoPoster}
     >
       <source src={heroVideo} type="video/mp4" />
-      <!-- Agregar .webm como fallback -->
-      <!-- <source src="/hero/video-fondo.webm" type="video/webm" /> -->
     </video>
-    <!-- Overlay oscuro sobre el video -->
     <div class="absolute inset-0 bg-black/50"></div>
   </div>
 
   <!-- ===== SLIDER DE IMÁGENES (sobre el video) ===== -->
-  <div id="hero-track" class="hero-track absolute inset-0 z-10 flex transition-transform duration-700" style={`width: ${slides.length * 100}%;`}>
+  <div
+    id="hero-track"
+    class="hero-track absolute inset-0 z-10 flex transition-transform duration-700"
+    style={`width: ${slides.length * 100}%;`}
+  >
     {slides.map((slide, i) => (
       <div
         class="hero-slide relative flex-shrink-0 flex items-center justify-center"
-        style={`width: ${100 / slides.length}%;`}
+        style={[
+          `width: ${100 / slides.length}%;`,
+          slide.image ? `background-image: url('${slide.image}');` : '',
+          'background-size: cover;',
+          'background-position: center;',
+          'background-repeat: no-repeat;',
+          'background-color: #2a2a2a;',
+        ].join(' ')}
         data-index={i}
       >
-        <!-- Imagen de fondo del slide -->
-        {slide.image && (
-          <div class="absolute inset-0 w-full h-full overflow-hidden">
-            <img
-              src={slide.image}
-              alt={slide.title.replace('\n', ' ')}
-              class="w-full h-full object-cover"
-              loading={i === 0 ? 'eager' : 'lazy'}
-              fetchpriority={i === 0 ? 'high' : 'low'}
-              decoding={i === 0 ? 'sync' : 'async'}
-              onerror="this.parentElement.style.display='none'"
-            />
-          </div>
-        )}
-
         <!-- Overlay oscuro por slide -->
         <div class="absolute inset-0 bg-black/40"></div>
 
@@ -169,14 +164,10 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
 <style>
   /* ===== Hero container — mobile-first responsive ===== */
-  /* FIX v2: background usa var(--bg-body) — se funde con el sitio    */
-  /*         en vez de #1a1a1a que se veía negro al recargar.          */
-  /*         max-height restaurado a valores originales para ampliar.  */
   .hero-slider {
     height: 65dvh;
     min-height: 350px;
     max-height: 500px;
-    background-color: var(--bg-body);
   }
 
   /* Tablet */
@@ -214,9 +205,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     }
   }
 
-  /* ===== Video layer — OCULTO por CSS por defecto ===== */
-  /* JS lo muestra con .is-ready solo cuando el video carga OK.       */
-  /* Esto elimina el flash de overlay negro/50% al recargar sin video. */
+  /* ===== Video layer — OCULTO por CSS hasta que el video cargue ===== */
   .hero-video-layer {
     display: none;
   }
@@ -225,7 +214,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     display: block;
   }
 
-  /* ===== Track y slides deben llenar el 100% del alto ===== */
+  /* ===== Track y slides llenan el 100% del alto ===== */
   .hero-track {
     height: 100%;
   }
@@ -313,7 +302,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ===== Arrows — más pequeñas en mobile ===== */
+  /* ===== Arrows ===== */
   .hero-arrow {
     position: absolute;
     top: 50%;
@@ -402,20 +391,18 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
   let currentSlide = 0;
   let autoplayTimer: ReturnType<typeof setInterval>;
-  const AUTOPLAY_INTERVAL = 5000; // 5 segundos por slide
+  const AUTOPLAY_INTERVAL = 5000;
 
   function goToSlide(index: number, animate = true) {
     if (index < 0) index = totalSlides - 1;
     if (index >= totalSlides) index = 0;
 
-    // Reset content animations for current slide
     const currentContent = slides[currentSlide]?.querySelector('.hero-slide-content');
     currentContent?.classList.remove('animating');
     currentContent?.classList.add('transitioning');
 
     currentSlide = index;
 
-    // Move track
     if (animate) {
       track.style.transition = 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
     } else {
@@ -423,15 +410,12 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     }
     track.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
 
-    // Update dots
     dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
 
-    // Trigger content animation for new slide
     const newContent = slides[index]?.querySelector('.hero-slide-content');
     if (newContent) {
       newContent.classList.remove('animating');
       newContent.classList.add('transitioning');
-      // Force reflow
       void (newContent as HTMLElement).offsetWidth;
       newContent.classList.remove('transitioning');
       newContent.classList.add('animating');
@@ -450,7 +434,6 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     if (autoplayTimer) clearInterval(autoplayTimer);
   }
 
-  // Event listeners
   nextBtn?.addEventListener('click', () => { nextSlide(); startAutoplay(); });
   prevBtn?.addEventListener('click', () => { prevSlide(); startAutoplay(); });
 
@@ -461,12 +444,11 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     });
   });
 
-  // Pause on hover
   const heroSection = document.querySelector('.hero-slider');
   heroSection?.addEventListener('mouseenter', stopAutoplay);
   heroSection?.addEventListener('mouseleave', startAutoplay);
 
-  // Touch swipe support
+  // Touch swipe
   let touchStartX = 0;
   let touchEndX = 0;
 
@@ -490,22 +472,15 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     if (e.key === 'ArrowLeft') { prevSlide(); startAutoplay(); }
   });
 
-  // ============================================================
-  // VIDEO — Mostrar capa solo si el video carga correctamente.
-  // Por CSS el video-layer tiene display:none por defecto.
-  // Solo agregamos .is-ready si el video puede reproducirse.
-  // Esto elimina el flash de overlay negro al recargar sin video.
-  // ============================================================
+  // Video — mostrar capa solo si el video carga OK
   const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
   const videoLayer = heroVideo?.closest('.hero-video-layer') as HTMLElement;
 
   if (heroVideo && videoLayer) {
-    // Video cargó OK → mostrar la capa
     heroVideo.addEventListener('canplaythrough', () => {
       videoLayer.classList.add('is-ready');
     }, { once: true });
 
-    // Video falló → asegurar que quede oculto
     heroVideo.addEventListener('error', () => {
       videoLayer.classList.remove('is-ready');
     });
@@ -515,6 +490,5 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     });
   }
 
-  // Start
   startAutoplay();
 </script>
