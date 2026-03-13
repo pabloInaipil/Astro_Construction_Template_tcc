@@ -3,6 +3,9 @@
 // Hero fullscreen con slider de imágenes + soporte video de fondo.
 // Cada slide puede tener: imagen de fondo, título grande y subtítulo.
 // Auto-rotación derecha→izquierda con dots de navegación.
+//
+// FIX v3: Imágenes como background-image inline en cada slide.
+//         background-size:cover garantiza cobertura total sin franjas.
 
 import { siteConfig } from '@config/site';
 
@@ -31,22 +34,17 @@ const heroVideo = '';
     style="width: 100%;"
   >
     {slides.map((slide, i) => (
-      <div class="hero-slide relative flex-shrink-0 w-full flex items-center justify-center" data-index={i}>
-        {/* Capa de imagen */}
-        {slide.image && (
-          <div class="absolute inset-0">
-            <img
-              src={slide.image}
-              alt={slide.title.replace('\n', ' ')}
-              class="w-full h-full object-cover"
-              loading={i === 0 ? 'eager' : 'lazy'}
-              fetchpriority={i === 0 ? 'high' : 'low'}
-              decoding={i === 0 ? 'sync' : 'async'}
-              onerror="this.parentElement.style.display='none'"
-            />
-          </div>
-        )}
-
+      <div
+        class="hero-slide relative flex-shrink-0 w-full flex items-center justify-center"
+        style={[
+          slide.image ? `background-image: url('${slide.image}');` : '',
+          'background-size: cover;',
+          'background-position: center;',
+          'background-repeat: no-repeat;',
+          'background-color: #2a2a2a;',
+        ].join(' ')}
+        data-index={i}
+      >
         {/* Capa de video (solo primer slide si hay video) */}
         {i === 0 && heroVideo && (
           <div class="hero-video-layer absolute inset-0 z-10">
@@ -164,7 +162,7 @@ const heroVideo = '';
     }
   }
 
-  /* ===== Track y slides deben llenar el 100% del alto ===== */
+  /* ===== Track y slides llenan el 100% del alto ===== */
   .hero-track {
     height: 100%;
   }
