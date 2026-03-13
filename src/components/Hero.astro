@@ -3,6 +3,9 @@
 // Hero fullscreen con slider de imágenes + soporte video de fondo.
 // Cada slide puede tener: imagen de fondo, título grande y subtítulo.
 // Auto-rotación derecha→izquierda con dots de navegación.
+//
+// FIX: background-color fallback + max-height reducido en mobile/tablet
+//       para que las imágenes cubran el 100% del contenedor.
 
 interface HeroSlide {
   /** Ruta de la imagen de fondo (en /public/) */
@@ -88,7 +91,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
       >
         <!-- Imagen de fondo del slide -->
         {slide.image && (
-          <div class="absolute inset-0">
+          <div class="absolute inset-0 w-full h-full overflow-hidden">
             <img
               src={slide.image}
               alt={slide.title.replace('\n', ' ')}
@@ -163,48 +166,50 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 </section>
 
 <style>
-  /* ===== Hero container — fix mobile viewport ===== */
   /* ===== Hero container — mobile-first responsive ===== */
-.hero-slider {
-  height: 65dvh;
-  min-height: 350px;
-  max-height: 500px;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
+  /* FIX: background-color oscuro como fallback cuando no hay video */
+  /* FIX: max-height reducido en mobile/tablet para mejor cobertura de imagen */
   .hero-slider {
-    height: 70dvh;
-    min-height: 450px;
-    max-height: 650px;
+    height: 65dvh;
+    min-height: 320px;
+    max-height: 420px;
+    background-color: #1a1a1a;
   }
-}
 
-/* Desktop */
-@media (min-width: 1024px) {
-  .hero-slider {
-    height: 100dvh;
-    min-height: 600px;
-    max-height: none;
+  /* Tablet */
+  @media (min-width: 768px) {
+    .hero-slider {
+      height: 70dvh;
+      min-height: 400px;
+      max-height: 550px;
+    }
   }
-}
 
-@media (max-width: 767px) {
-  .hero-title {
-    font-size: clamp(1.6rem, 7vw, 3rem);
-    margin-bottom: 0.5rem;
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .hero-slider {
+      height: 100dvh;
+      min-height: 600px;
+      max-height: none;
+    }
   }
-  
-  .hero-subtitle {
-    font-size: 0.8rem;
-    margin-bottom: 1.2rem;
+
+  @media (max-width: 767px) {
+    .hero-title {
+      font-size: clamp(1.6rem, 7vw, 3rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-cta {
+      padding: 0.7rem 2rem;
+      font-size: 0.7rem;
+    }
   }
-  
-  .hero-cta {
-    padding: 0.7rem 2rem;
-    font-size: 0.7rem;
-  }
-}
 
   /* ===== Track y slides deben llenar el 100% del alto ===== */
   .hero-track {
@@ -334,20 +339,20 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
   /* ===== Dots ===== */
   .hero-dots {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
-  display: flex;
-  gap: 0.6rem;
-}
-
-@media (min-width: 1024px) {
-  .hero-dots {
-    bottom: 4.5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    display: flex;
+    gap: 0.6rem;
   }
-}
+
+  @media (min-width: 1024px) {
+    .hero-dots {
+      bottom: 4.5rem;
+    }
+  }
 
   .hero-dot {
     width: 10px;
