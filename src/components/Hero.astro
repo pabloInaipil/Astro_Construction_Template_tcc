@@ -4,8 +4,9 @@
 // Cada slide puede tener: imagen de fondo, título grande y subtítulo.
 // Auto-rotación derecha→izquierda con dots de navegación.
 //
-// FIX: background-color fallback + max-height reducido en mobile/tablet
-//       para que las imágenes cubran el 100% del contenedor.
+// FIX v2: background-color usa var(--bg-body) para fundirse con el sitio,
+//         video-layer oculto por CSS por defecto (se muestra solo si video carga),
+//         max-height restaurado para que el slider cubra más.
 
 interface HeroSlide {
   /** Ruta de la imagen de fondo (en /public/) */
@@ -62,6 +63,7 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 <section id="inicio" class="hero-slider relative w-full overflow-hidden">
 
   <!-- ===== VIDEO DE FONDO (capa más baja) ===== -->
+  <!-- Oculto por CSS por defecto. JS lo muestra solo si el video carga OK. -->
   <div class="hero-video-layer absolute inset-0 z-0">
     <video
       id="hero-video"
@@ -167,21 +169,22 @@ const heroVideoPoster = '/hero/slide-01.jpg';
 
 <style>
   /* ===== Hero container — mobile-first responsive ===== */
-  /* FIX: background-color oscuro como fallback cuando no hay video */
-  /* FIX: max-height reducido en mobile/tablet para mejor cobertura de imagen */
+  /* FIX v2: background usa var(--bg-body) — se funde con el sitio    */
+  /*         en vez de #1a1a1a que se veía negro al recargar.          */
+  /*         max-height restaurado a valores originales para ampliar.  */
   .hero-slider {
     height: 65dvh;
-    min-height: 320px;
-    max-height: 420px;
-    background-color: #1a1a1a;
+    min-height: 350px;
+    max-height: 500px;
+    background-color: var(--bg-body);
   }
 
   /* Tablet */
   @media (min-width: 768px) {
     .hero-slider {
       height: 70dvh;
-      min-height: 400px;
-      max-height: 550px;
+      min-height: 450px;
+      max-height: 650px;
     }
   }
 
@@ -209,6 +212,17 @@ const heroVideoPoster = '/hero/slide-01.jpg';
       padding: 0.7rem 2rem;
       font-size: 0.7rem;
     }
+  }
+
+  /* ===== Video layer — OCULTO por CSS por defecto ===== */
+  /* JS lo muestra con .is-ready solo cuando el video carga OK.       */
+  /* Esto elimina el flash de overlay negro/50% al recargar sin video. */
+  .hero-video-layer {
+    display: none;
+  }
+
+  .hero-video-layer.is-ready {
+    display: block;
   }
 
   /* ===== Track y slides deben llenar el 100% del alto ===== */
@@ -373,11 +387,6 @@ const heroVideoPoster = '/hero/slide-01.jpg';
   .hero-dot:hover:not(.active) {
     background: rgba(255, 255, 255, 0.4);
   }
-
-  /* ===== Hide video layer when no video loads ===== */
-  .hero-video-layer video[data-error="true"] {
-    display: none;
-  }
 </style>
 
 <script>
@@ -481,18 +490,30 @@ const heroVideoPoster = '/hero/slide-01.jpg';
     if (e.key === 'ArrowLeft') { prevSlide(); startAutoplay(); }
   });
 
-  // Video error handling — hide video layer if no video found
+  // ============================================================
+  // VIDEO — Mostrar capa solo si el video carga correctamente.
+  // Por CSS el video-layer tiene display:none por defecto.
+  // Solo agregamos .is-ready si el video puede reproducirse.
+  // Esto elimina el flash de overlay negro al recargar sin video.
+  // ============================================================
   const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
-  heroVideo?.addEventListener('error', () => {
-    heroVideo.dataset.error = 'true';
-    heroVideo.closest('.hero-video-layer')?.classList.add('hidden');
-  });
+  const videoLayer = heroVideo?.closest('.hero-video-layer') as HTMLElement;
 
-  // If video source fails
-  heroVideo?.querySelector('source')?.addEventListener('error', () => {
-    heroVideo.dataset.error = 'true';
-    heroVideo.closest('.hero-video-layer')?.classList.add('hidden');
-  });
+  if (heroVideo && videoLayer) {
+    // Video cargó OK → mostrar la capa
+    heroVideo.addEventListener('canplaythrough', () => {
+      videoLayer.classList.add('is-ready');
+    }, { once: true });
+
+    // Video falló → asegurar que quede oculto
+    heroVideo.addEventListener('error', () => {
+      videoLayer.classList.remove('is-ready');
+    });
+
+    heroVideo.querySelector('source')?.addEventListener('error', () => {
+      videoLayer.classList.remove('is-ready');
+    });
+  }
 
   // Start
   startAutoplay();
