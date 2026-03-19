@@ -317,7 +317,7 @@ const projectImagesMap = projects.map((p) =>
         <article
           class="project-card group rounded-2xl overflow-hidden transition-all duration-500"
           data-category={project.category}
-          style={`background-color: var(--bg-card); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-soft);`}
+          style={`background-color: var(--bg-card); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-soft); display: flex; flex-direction: column;`}
         >
           {/* Carousel Container */}
           <div class="carousel relative aspect-[4/3] overflow-hidden">
@@ -377,7 +377,7 @@ const projectImagesMap = projects.map((p) =>
           </div>
 
           {/* Info — se actualiza dinámicamente con el carrusel */}
-          <div class="p-5">
+          <div class="p-5 flex flex-col flex-1">
             <h3 class="card-title text-base font-heading font-bold mb-1.5" style="color: var(--text-heading);">
               {project.images[0].title}
             </h3>
@@ -393,7 +393,7 @@ const projectImagesMap = projects.map((p) =>
                 <span class="card-location-text">{project.images[0].location}</span>
               </div>
             )}
-            <div class="mt-4 text-center">
+            <div class="mt-auto pt-4 text-center">
               <a href={`/${project.category}/`} class="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors" style="color: var(--color-accent-600);">
                 Ver más
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
