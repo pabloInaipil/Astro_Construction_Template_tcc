@@ -1,0 +1,169 @@
+---
+// src/pages/quinchos.astro
+// Landing page dedicada — Servicio de Quinchos
+// Optimizada para Google Ads: keywords específicas, H1 enfocado, contenido relevante.
+
+import Layout from '@layouts/Layout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceProjects from '@components/ServiceProjects.astro';
+import Contact from '@components/Contact.astro';
+
+const features = [
+  {
+    icon: 'M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z',
+    title: 'Parrilla Profesional',
+    description: 'Construimos parrillas de ladrillo refractario con campana de acero, mesón de trabajo y espacio para leña.',
+  },
+  {
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    title: 'Diseño a Medida',
+    description: 'Cada quincho se diseña según tu terreno y necesidades: cerrado, semicerrado o abierto, con la distribución ideal.',
+  },
+  {
+    icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+    title: 'Terminaciones Premium',
+    description: 'Cielo de madera, piso de porcelanato, iluminación cálida y detalles que hacen la diferencia en cada proyecto.',
+  },
+  {
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+    title: 'Espacio Familiar',
+    description: 'Diseñamos pensando en la familia: espacios amplios, cómodos y funcionales para reuniones inolvidables.',
+  },
+];
+
+const process = [
+  { step: '01', title: 'Visita Técnica', description: 'Evaluamos el terreno, orientación solar, accesos y tu visión para el quincho ideal.' },
+  { step: '02', title: 'Diseño y Cotización', description: 'Preparamos planos con distribución de parrilla, mesón, comedor y presupuesto detallado.' },
+  { step: '03', title: 'Construcción', description: 'Obra gruesa, terminaciones, instalación eléctrica e iluminación con supervisión constante.' },
+  { step: '04', title: 'Entrega', description: 'Tu quincho listo para inaugurar, con garantía y todos los detalles funcionando.' },
+];
+---
+
+<Layout
+  title="Construcción de Quinchos en Santiago — TodoCasa Construcciones"
+  description="Construcción de quinchos con parrilla, mesón y terminaciones premium en Santiago. Diseño a medida, materiales de primera. Más de 10 años de experiencia. Cotiza gratis."
+>
+  <ServiceHero
+    title="Construcción de Quinchos"
+    subtitle="Diseñamos y construimos quinchos con parrilla, mesón y terminaciones de lujo. El espacio perfecto para compartir en familia."
+    backgroundImage="/hero/slide-03.webp"
+  />
+
+  <!-- Intro Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Servicio
+        </span>
+        <h2 class="section-title mb-6">
+          Tu quincho soñado, construido con calidad y pasión
+        </h2>
+        <p class="text-base leading-relaxed" style="color: var(--text-body);">
+          En <strong style="color: var(--text-heading);">TodoCasa Construcciones</strong> nos especializamos en 
+          la construcción de quinchos que se convierten en el corazón de tu hogar. Cada proyecto incluye 
+          <strong style="color: var(--text-heading);">parrilla de ladrillo refractario, mesón de trabajo, 
+          campana de acero</strong> y terminaciones que marcan la diferencia. Trabajamos con madera nativa, 
+          porcelanato, piedra y los mejores materiales del mercado para crear un espacio que disfrutarás por décadas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">¿Por qué construir tu quincho con nosotros?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature) => (
+          <div class="p-6 rounded-2xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: var(--color-accent-100);">
+              <svg class="w-6 h-6" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{feature.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Proceso
+        </span>
+        <h2 class="section-title mb-4">De la idea a la realidad en 4 pasos</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {process.map((item) => (
+          <div class="relative reveal">
+            <div class="text-5xl font-heading font-extrabold mb-3" style="color: var(--color-accent-200);">
+              {item.step}
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Types -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">Tipos de quinchos que construimos</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          'Quincho cerrado con vidrio',
+          'Quincho semicerrado',
+          'Quincho abierto con pérgola',
+          'Quincho con horno de barro',
+          'Quincho con bar integrado',
+          'Quincho con baño y bodega',
+        ].map((tipo) => (
+          <div class="flex items-center gap-3 p-4 rounded-xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium" style="color: var(--text-heading);">{tipo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de Proyectos -->
+  <ServiceProjects
+    category="quinchos"
+    sectionTitle="Quinchos que hemos construido"
+  />
+
+  <!-- CTA Banner -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-primary-600);">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white mb-4">
+        ¿Listo para construir tu quincho?
+      </h2>
+      <p class="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
+        Te entregamos una cotización detallada sin compromiso. Cuéntanos tu proyecto y te contactamos en menos de 24 horas.
+      </p>
+      <a href="#cotizar" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white rounded-lg font-semibold transition-all duration-200 hover:bg-accent-50 hover:-translate-y-0.5" style="color: var(--color-primary-700);">
+        Cotizar Mi Quincho
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <div id="cotizar">
+    <Contact />
+  </div>
+</Layout>

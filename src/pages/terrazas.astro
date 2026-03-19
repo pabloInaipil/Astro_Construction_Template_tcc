@@ -1,0 +1,169 @@
+---
+// src/pages/terrazas.astro
+// Landing page dedicada — Servicio de Terrazas
+// Optimizada para Google Ads: keywords específicas, H1 enfocado, contenido relevante.
+
+import Layout from '@layouts/Layout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceProjects from '@components/ServiceProjects.astro';
+import Contact from '@components/Contact.astro';
+
+const features = [
+  {
+    icon: 'M4 21V10l8-7 8 7v11M4 10h16M8 21v-7h8v7M2 21h20M7 10v-1M12 10V6M17 10v-1',
+    title: 'Estructura de Acero',
+    description: 'Perfiles de acero soldados y pintados al horno con protección anticorrosión para máxima durabilidad.',
+  },
+  {
+    icon: 'M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 7.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z',
+    title: 'Protección Solar',
+    description: 'Techumbres con policarbonato, vidrio laminado o cielo de madera para protegerte del sol y la lluvia.',
+  },
+  {
+    icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+    title: 'Diseño Versátil',
+    description: 'Terrazas techadas, abiertas, con deck de madera o porcelanato. Adaptamos el diseño a tu espacio y estilo.',
+  },
+  {
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    title: 'Garantía de Calidad',
+    description: 'Todos nuestros proyectos cuentan con garantía de construcción. Materiales certificados y mano de obra profesional.',
+  },
+];
+
+const process = [
+  { step: '01', title: 'Visita Técnica', description: 'Evaluamos dimensiones, orientación, accesos y tus preferencias de diseño para la terraza.' },
+  { step: '02', title: 'Diseño y Cotización', description: 'Planos con estructura, cubierta, piso y presupuesto detallado por etapa.' },
+  { step: '03', title: 'Construcción', description: 'Instalación de estructura, cubierta, piso y terminaciones con supervisión permanente.' },
+  { step: '04', title: 'Entrega', description: 'Tu terraza lista para disfrutar, con garantía y acabados impecables.' },
+];
+---
+
+<Layout
+  title="Construcción de Terrazas en Santiago — TodoCasa Construcciones"
+  description="Construcción de terrazas techadas y abiertas en Santiago. Estructura de acero, deck de madera, pérgolas. Diseño a medida con terminaciones premium. Cotiza gratis."
+>
+  <ServiceHero
+    title="Construcción de Terrazas"
+    subtitle="Terrazas techadas y abiertas con estructura de primera calidad y diseño a medida. Disfruta del aire libre con el confort que mereces."
+    backgroundImage="/hero/slide-02.webp"
+  />
+
+  <!-- Intro Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Servicio
+        </span>
+        <h2 class="section-title mb-6">
+          Extiende tu hogar hacia el exterior con estilo
+        </h2>
+        <p class="text-base leading-relaxed" style="color: var(--text-body);">
+          Una terraza bien construida transforma tu casa. En <strong style="color: var(--text-heading);">TodoCasa 
+          Construcciones</strong> diseñamos terrazas que combinan funcionalidad y estética, usando 
+          <strong style="color: var(--text-heading);">estructura de acero, perfiles de aluminio, madera tratada</strong> 
+          y cubiertas de policarbonato o vidrio laminado. Cada proyecto se adapta a tu espacio, tu presupuesto y el 
+          estilo de tu hogar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">¿Por qué construir tu terraza con nosotros?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature) => (
+          <div class="p-6 rounded-2xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: var(--color-accent-100);">
+              <svg class="w-6 h-6" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{feature.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Proceso
+        </span>
+        <h2 class="section-title mb-4">De la idea a la realidad en 4 pasos</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {process.map((item) => (
+          <div class="relative reveal">
+            <div class="text-5xl font-heading font-extrabold mb-3" style="color: var(--color-accent-200);">
+              {item.step}
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Types -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">Tipos de terrazas que construimos</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          'Terraza techada con cielo',
+          'Terraza abierta con pérgola',
+          'Terraza con deck de madera',
+          'Terraza con piso de porcelanato',
+          'Terraza elevada o en desnivel',
+          'Terraza con cortaviento de vidrio',
+        ].map((tipo) => (
+          <div class="flex items-center gap-3 p-4 rounded-xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium" style="color: var(--text-heading);">{tipo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de Proyectos -->
+  <ServiceProjects
+    category="terrazas"
+    sectionTitle="Terrazas que hemos construido"
+  />
+
+  <!-- CTA Banner -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-primary-600);">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white mb-4">
+        ¿Quieres una terraza para tu hogar?
+      </h2>
+      <p class="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
+        Te entregamos una cotización detallada sin compromiso. Cuéntanos tu proyecto y te contactamos en menos de 24 horas.
+      </p>
+      <a href="#cotizar" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white rounded-lg font-semibold transition-all duration-200 hover:bg-accent-50 hover:-translate-y-0.5" style="color: var(--color-primary-700);">
+        Cotizar Mi Terraza
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <div id="cotizar">
+    <Contact />
+  </div>
+</Layout>

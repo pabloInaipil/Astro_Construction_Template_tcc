@@ -1,0 +1,467 @@
+---
+// src/components/ServiceProjects.astro
+// Galería de proyectos filtrada por categoría — SIN tabs.
+// Reutiliza la misma estética de carrusel + lightbox de ProjectGallery.
+// Se usa en las páginas de servicio (/ampliaciones, /quinchos, etc.)
+
+import { projects, type Project, type ProjectImage } from '@/data/projects';
+
+interface Props {
+  /** Categoría a mostrar: 'ampliaciones' | 'quinchos' | 'terrazas' | 'piscinas' */
+  category: string;
+  /** Título de la sección (opcional) */
+  sectionTitle?: string;
+}
+
+const { category, sectionTitle } = Astro.props;
+
+// Filtrar proyectos por categoría
+const filtered = projects.filter((p) => p.category === category);
+
+// Mapa de imágenes por proyecto (para el lightbox)
+const projectImagesMap: Record<number, ProjectImage[]> = {};
+filtered.forEach((project, idx) => {
+  projectImagesMap[idx] = project.images;
+});
+---
+
+<section id="galeria" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+        Nuestros Proyectos
+      </span>
+      <h2 class="section-title mb-4">
+        {sectionTitle || `Proyectos de ${category.charAt(0).toUpperCase() + category.slice(1)}`}
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Conoce algunos de nuestros trabajos realizados. Cada proyecto refleja nuestro compromiso con la calidad y las terminaciones de alto estándar.
+      </p>
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {filtered.map((project, projectIdx) => (
+        <article
+          class="project-card group rounded-2xl overflow-hidden transition-all duration-500"
+          style="background-color: var(--bg-card); border: 1px solid var(--border-subtle);"
+        >
+          {/* Carousel */}
+          <div class="carousel relative aspect-[4/3] overflow-hidden" tabindex="0" role="region" aria-label={`Carrusel: ${project.images[0].title}`}>
+            <div class="carousel-track flex overflow-x-auto snap-x snap-mandatory scroll-smooth" style="scrollbar-width: none;">
+              {project.images.map((img, imgIdx) => (
+                <div class="flex-shrink-0 w-full snap-center relative" data-index={imgIdx}>
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 w-full h-full object-cover cursor-pointer lightbox-trigger"
+                    data-project={projectIdx}
+                    data-image={imgIdx}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Counter */}
+            {project.images.length > 1 && (
+              <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-medium z-10"
+                style="background: rgba(0,0,0,0.5); color: white;">
+                <span class="carousel-current">1</span>/{project.images.length}
+              </div>
+            )}
+
+            {/* Arrows */}
+            {project.images.length > 1 && (
+              <>
+                <button type="button" class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style="background: rgba(255,255,255,0.9); color: var(--color-primary-800);" aria-label="Anterior">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button type="button" class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style="background: rgba(255,255,255,0.9); color: var(--color-primary-800);" aria-label="Siguiente">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </>
+            )}
+
+            {/* Dots */}
+            {project.images.length > 1 && (
+              <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                {project.images.map((_, dotIdx) => (
+                  <button type="button"
+                    class={`w-2 h-2 rounded-full transition-all ${dotIdx === 0 ? 'bg-white w-4' : 'bg-white/50'}`}
+                    data-index={dotIdx} aria-label={`Imagen ${dotIdx + 1}`} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Card info */}
+          <div class="p-5">
+            <h3 class="card-title text-lg font-heading font-bold mb-1" style="color: var(--text-heading);">
+              {project.images[0].title}
+            </h3>
+            <p class="card-desc text-sm mb-2" style="color: var(--text-muted);">
+              {project.images[0].description}
+            </p>
+            {project.images[0].location && (
+              <div class="card-location flex items-center gap-1.5 text-xs" style="color: var(--text-muted); opacity: 0.7;">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>{project.images[0].location}</span>
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {/* CTA si no hay proyectos */}
+    {filtered.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-base" style="color: var(--text-muted);">
+          Próximamente publicaremos proyectos en esta categoría. ¡Contáctanos para ver nuestro portafolio completo!
+        </p>
+      </div>
+    )}
+
+    {/* Ver más link */}
+    <div class="text-center mt-12 reveal">
+      <a href="/#proyectos" class="inline-flex items-center gap-2 text-sm font-semibold transition-colors" style="color: var(--color-accent-600);">
+        Ver todos los proyectos
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX MODAL ===== -->
+<div id="sp-lightbox" class="sp-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de imágenes">
+  <div class="sp-lightbox-backdrop" id="sp-lightbox-backdrop"></div>
+
+  <button type="button" id="sp-lightbox-close" class="sp-lightbox-close" aria-label="Cerrar visor">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <div class="sp-lightbox-counter" id="sp-lightbox-counter"></div>
+
+  <button type="button" id="sp-lightbox-prev" class="sp-lightbox-nav sp-lightbox-nav-prev" aria-label="Imagen anterior">
+    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <button type="button" id="sp-lightbox-next" class="sp-lightbox-nav sp-lightbox-nav-next" aria-label="Imagen siguiente">
+    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <div class="sp-lightbox-content" id="sp-lightbox-content">
+    <div class="sp-lightbox-image-wrapper">
+      <img id="sp-lightbox-img" class="sp-lightbox-img" src="" alt="" />
+    </div>
+    <div class="sp-lightbox-caption">
+      <h4 class="sp-lightbox-caption-title" id="sp-lightbox-caption-title"></h4>
+      <p class="sp-lightbox-caption-desc" id="sp-lightbox-caption-desc"></p>
+      <span class="sp-lightbox-caption-location" id="sp-lightbox-caption-location"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .carousel-track::-webkit-scrollbar { display: none; }
+
+  /* Lightbox — prefijo sp- para no colisionar con ProjectGallery */
+  .sp-lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .sp-lightbox.is-open { opacity: 1; visibility: visible; }
+  .sp-lightbox-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.92); cursor: pointer; }
+  .sp-lightbox-close {
+    position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.1); color: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .sp-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+  .sp-lightbox-counter {
+    position: absolute; top: 1.1rem; left: 50%; transform: translateX(-50%);
+    z-index: 10; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500;
+  }
+  .sp-lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+    width: 48px; height: 48px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.1); color: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .sp-lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .sp-lightbox-nav:active { transform: translateY(-50%) scale(0.92); }
+  .sp-lightbox-nav-prev { left: 0.75rem; }
+  .sp-lightbox-nav-next { right: 0.75rem; }
+  .sp-lightbox-content {
+    position: relative; z-index: 5; display: flex; flex-direction: column;
+    align-items: center; max-width: 1200px; width: 90vw; max-height: 90vh;
+  }
+  .sp-lightbox-image-wrapper {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 70vh;
+  }
+  .sp-lightbox-img {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+    border-radius: 0.5rem 0.5rem 0 0; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    user-select: none; -webkit-user-drag: none;
+    opacity: 0; transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .sp-lightbox-img.is-loaded { opacity: 1; transform: scale(1); }
+  .sp-lightbox-caption {
+    width: 100%; max-width: 800px; padding: 1rem 1.25rem; text-align: center;
+    opacity: 0; transition: opacity 0.3s ease 0.15s;
+  }
+  .sp-lightbox.is-open .sp-lightbox-caption { opacity: 1; }
+  .sp-lightbox-caption-title {
+    color: white; font-family: var(--font-heading); font-size: 1.1rem;
+    font-weight: 700; margin: 0 0 0.3rem; line-height: 1.3;
+  }
+  .sp-lightbox-caption-desc {
+    color: rgba(255,255,255,0.7); font-size: 0.875rem;
+    margin: 0 0 0.3rem; line-height: 1.5;
+  }
+  .sp-lightbox-caption-location {
+    color: rgba(255,255,255,0.5); font-size: 0.75rem; letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 639px) {
+    .sp-lightbox-close { top: 0.75rem; right: 0.75rem; width: 40px; height: 40px; }
+    .sp-lightbox-nav { width: 40px; height: 40px; }
+    .sp-lightbox-nav-prev { left: 0.4rem; }
+    .sp-lightbox-nav-next { right: 0.4rem; }
+    .sp-lightbox-content { width: 96vw; }
+    .sp-lightbox-image-wrapper { height: 55vh; }
+  }
+
+  @media (min-width: 1024px) {
+    .sp-lightbox-content { width: 80vw; }
+    .sp-lightbox-image-wrapper { height: 72vh; }
+    .sp-lightbox-nav { width: 52px; height: 52px; }
+    .sp-lightbox-nav-prev { left: 1.5rem; }
+    .sp-lightbox-nav-next { right: 1.5rem; }
+  }
+</style>
+
+<script>
+  // ============================================================
+  // CARRUSELES — navegación y actualización de metadata
+  // ============================================================
+  document.querySelectorAll('.carousel').forEach((carousel) => {
+    const card = carousel.closest('.project-card') as HTMLElement;
+    const track = carousel.querySelector<HTMLElement>('.carousel-track');
+    const dots = carousel.querySelectorAll<HTMLButtonElement>('.carousel-dots button');
+    const counter = carousel.querySelector<HTMLElement>('.carousel-current');
+    const prevBtn = carousel.querySelector<HTMLButtonElement>('.carousel-prev');
+    const nextBtn = carousel.querySelector<HTMLButtonElement>('.carousel-next');
+    const slides = track?.children;
+
+    if (!track || !slides || slides.length <= 1) return;
+
+    let currentIndex = 0;
+    const total = slides.length;
+
+    // Metadata arrays from DOM
+    const titles: string[] = [];
+    const descs: string[] = [];
+    const locations: string[] = [];
+    carousel.querySelectorAll<HTMLElement>('.carousel-track > div').forEach((slide) => {
+      const img = slide.querySelector<HTMLImageElement>('img');
+      if (img) {
+        titles.push(img.alt || '');
+        descs.push('');
+        locations.push('');
+      }
+    });
+
+    function goToSlide(idx: number) {
+      if (idx < 0) idx = total - 1;
+      if (idx >= total) idx = 0;
+      currentIndex = idx;
+
+      (slides[idx] as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
+      });
+
+      if (counter) counter.textContent = String(idx + 1);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i === idx);
+        dot.classList.toggle('w-4', i === idx);
+        dot.classList.toggle('bg-white/50', i !== idx);
+        dot.classList.toggle('w-2', i !== idx);
+      });
+
+      // Update card info
+      if (card) {
+        const titleEl = card.querySelector('.card-title');
+        const descEl = card.querySelector('.card-desc');
+        const locEl = card.querySelector('.card-location span');
+
+        const imgs = carousel.querySelectorAll<HTMLImageElement>('.lightbox-trigger');
+        if (imgs[idx]) {
+          // Read data from project images map via lightbox trigger
+        }
+      }
+    }
+
+    prevBtn?.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn?.addEventListener('click', () => goToSlide(currentIndex + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const newIndex = Math.round(track.scrollLeft / track.clientWidth);
+        if (newIndex !== currentIndex) goToSlide(newIndex);
+      }, 50);
+    }, { passive: true });
+
+    carousel.addEventListener('keydown', (e: Event) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      if (ke.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    });
+  });
+</script>
+
+<script define:vars={{ projectImagesMap }}>
+  // ============================================================
+  // LIGHTBOX — sp- prefixed para no colisionar
+  // ============================================================
+  var spLightbox = document.getElementById('sp-lightbox');
+  var spLightboxImg = document.getElementById('sp-lightbox-img');
+  var spLightboxClose = document.getElementById('sp-lightbox-close');
+  var spLightboxPrev = document.getElementById('sp-lightbox-prev');
+  var spLightboxNext = document.getElementById('sp-lightbox-next');
+  var spLightboxBackdrop = document.getElementById('sp-lightbox-backdrop');
+  var spLightboxCounter = document.getElementById('sp-lightbox-counter');
+  var spCaptionTitle = document.getElementById('sp-lightbox-caption-title');
+  var spCaptionDesc = document.getElementById('sp-lightbox-caption-desc');
+  var spCaptionLocation = document.getElementById('sp-lightbox-caption-location');
+
+  var spCurrentImages = [];
+  var spCurrentIndex = 0;
+
+  function spOpenLightbox(projectIdx, imageIdx) {
+    spCurrentImages = projectImagesMap[projectIdx] || [];
+    spCurrentIndex = imageIdx;
+    if (spCurrentImages.length === 0) return;
+
+    spShowImage();
+    spLightbox.classList.add('is-open');
+    spLightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    var hasMultiple = spCurrentImages.length > 1;
+    spLightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
+    spLightboxNext.style.display = hasMultiple ? 'flex' : 'none';
+    spLightboxCounter.style.display = hasMultiple ? 'block' : 'none';
+  }
+
+  function spCloseLightbox() {
+    spLightbox.classList.remove('is-open');
+    spLightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      spLightboxImg.src = '';
+      spLightboxImg.alt = '';
+      spLightboxImg.classList.remove('is-loaded');
+      spCaptionTitle.textContent = '';
+      spCaptionDesc.textContent = '';
+      spCaptionLocation.textContent = '';
+    }, 300);
+  }
+
+  function spShowImage() {
+    var imgData = spCurrentImages[spCurrentIndex];
+    if (!imgData) return;
+
+    spLightboxImg.classList.remove('is-loaded');
+    spLightboxImg.src = imgData.src;
+    spLightboxImg.alt = imgData.title;
+    spLightboxCounter.textContent = (spCurrentIndex + 1) + ' / ' + spCurrentImages.length;
+
+    if (spLightboxImg.complete && spLightboxImg.naturalWidth > 0) {
+      spLightboxImg.classList.add('is-loaded');
+    } else {
+      spLightboxImg.onload = function() { spLightboxImg.classList.add('is-loaded'); };
+    }
+
+    spCaptionTitle.textContent = imgData.title;
+    spCaptionDesc.textContent = imgData.description;
+    spCaptionLocation.textContent = imgData.location || '';
+  }
+
+  function spLightboxGo(direction) {
+    spCurrentIndex += direction;
+    if (spCurrentIndex < 0) spCurrentIndex = spCurrentImages.length - 1;
+    if (spCurrentIndex >= spCurrentImages.length) spCurrentIndex = 0;
+    spShowImage();
+  }
+
+  // Event listeners
+  document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var projectIdx = parseInt(img.dataset.project, 10);
+      var imageIdx = parseInt(img.dataset.image, 10);
+      spOpenLightbox(projectIdx, imageIdx);
+    });
+  });
+
+  spLightboxClose.addEventListener('click', spCloseLightbox);
+  spLightboxBackdrop.addEventListener('click', spCloseLightbox);
+  spLightboxPrev.addEventListener('click', function() { spLightboxGo(-1); });
+  spLightboxNext.addEventListener('click', function() { spLightboxGo(1); });
+
+  document.addEventListener('keydown', function(e) {
+    if (!spLightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') spCloseLightbox();
+    if (e.key === 'ArrowLeft') spLightboxGo(-1);
+    if (e.key === 'ArrowRight') spLightboxGo(1);
+  });
+
+  // Touch swipe
+  var spTouchStartX = 0;
+  var spTouchStartY = 0;
+
+  spLightbox.addEventListener('touchstart', function(e) {
+    spTouchStartX = e.changedTouches[0].screenX;
+    spTouchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  spLightbox.addEventListener('touchend', function(e) {
+    var diffX = spTouchStartX - e.changedTouches[0].screenX;
+    var diffY = spTouchStartY - e.changedTouches[0].screenY;
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) spLightboxGo(1);
+      else spLightboxGo(-1);
+    }
+  }, { passive: true });
+</script>

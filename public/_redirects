@@ -7,19 +7,9 @@
 
 # ============================================================
 # REDIRECTS DE WORDPRESS → Landing page Astro
-# Las URLs viejas del WordPress apuntan a páginas que ya no
-# existen. Redirigimos a las secciones correspondientes.
+# Las URLs con trailing slash redirigen a las páginas de servicio.
+# Astro genera /ampliaciones/index.html → accesible como /ampliaciones/
 # ============================================================
-
-# Servicios individuales → sección servicios
-/ampliaciones/  /#servicios  301
-/ampliaciones  /#servicios  301
-/quinchos/  /#servicios  301
-/quinchos  /#servicios  301
-/terrazas/  /#servicios  301
-/terrazas  /#servicios  301
-/piscinas/  /#servicios  301
-/piscinas  /#servicios  301
 
 # Páginas comunes de WordPress
 /contacto/  /#contacto  301
@@ -37,5 +27,5 @@
 /feed/  /  301
 /sitemap.xml  /sitemap-index.xml  301
 
-# Redirect www → sin www (descomentar cuando se configure dominio)
+# Redirect www → sin www (descomentar cuando esté configurado)
 # https://www.todocasaconstrucciones.cl/*  https://todocasaconstrucciones.cl/:splat  301

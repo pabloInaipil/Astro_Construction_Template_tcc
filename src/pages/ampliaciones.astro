@@ -1,0 +1,169 @@
+---
+// src/pages/ampliaciones.astro
+// Landing page dedicada — Servicio de Ampliaciones
+// Optimizada para Google Ads: keywords específicas, H1 enfocado, contenido relevante.
+
+import Layout from '@layouts/Layout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceProjects from '@components/ServiceProjects.astro';
+import Contact from '@components/Contact.astro';
+
+const features = [
+  {
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    title: 'Estructura Sólida',
+    description: 'Trabajamos con metalcom y estructura metálica certificada, asegurando la estabilidad y durabilidad de cada ampliación.',
+  },
+  {
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    title: 'Respetamos tu Casa',
+    description: 'Cada ampliación se integra con la arquitectura existente, manteniendo la armonía visual y cumpliendo la normativa vigente.',
+  },
+  {
+    icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
+    title: 'Presupuesto Transparente',
+    description: 'Cotización detallada sin costos ocultos. Sabes exactamente qué incluye cada etapa del proyecto desde el primer día.',
+  },
+  {
+    icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Plazos Cumplidos',
+    description: 'Planificamos cada fase de la ampliación con cronograma claro. Respetamos los plazos acordados sin sorpresas.',
+  },
+];
+
+const process = [
+  { step: '01', title: 'Visita Técnica', description: 'Evaluamos el terreno, la estructura existente y tus necesidades para definir la mejor solución.' },
+  { step: '02', title: 'Diseño y Cotización', description: 'Preparamos planos, especificaciones técnicas y un presupuesto detallado para tu aprobación.' },
+  { step: '03', title: 'Construcción', description: 'Ejecutamos la obra con materiales de primera, mano de obra calificada y supervisión permanente.' },
+  { step: '04', title: 'Entrega', description: 'Entregamos tu ampliación terminada con garantía, limpieza completa y documentación del proyecto.' },
+];
+---
+
+<Layout
+  title="Ampliaciones de Casas en Santiago — TodoCasa Construcciones"
+  description="Ampliaciones de casas con finas terminaciones en Santiago. Dormitorios, living, cocinas y más. Estructura metalcom, aislación térmica y normativa vigente. Cotiza gratis."
+>
+  <ServiceHero
+    title="Ampliaciones de Casas"
+    subtitle="Ampliamos tu hogar con estructura sólida, finas terminaciones y respetando la arquitectura existente. Más de 10 años de experiencia en Santiago."
+    backgroundImage="/hero/slide-04.webp"
+  />
+
+  <!-- Intro Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Servicio
+        </span>
+        <h2 class="section-title mb-6">
+          Más espacio para tu familia, sin perder la esencia de tu hogar
+        </h2>
+        <p class="text-base leading-relaxed" style="color: var(--text-body);">
+          ¿Tu casa se quedó pequeña? En <strong style="color: var(--text-heading);">TodoCasa Construcciones</strong> 
+          diseñamos y construimos ampliaciones que se integran de forma natural con tu vivienda. Trabajamos con 
+          <strong style="color: var(--text-heading);">metalcom, estructura metálica y hormigón</strong>, según lo que 
+          tu proyecto necesite. Desde dormitorios y baños hasta living-comedor y segundos pisos, cada ampliación se 
+          ejecuta con materiales certificados, aislación térmica y terminaciones de alto estándar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">¿Por qué elegirnos para tu ampliación?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature) => (
+          <div class="p-6 rounded-2xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: var(--color-accent-100);">
+              <svg class="w-6 h-6" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{feature.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Proceso
+        </span>
+        <h2 class="section-title mb-4">De la idea a la realidad en 4 pasos</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {process.map((item) => (
+          <div class="relative reveal">
+            <div class="text-5xl font-heading font-extrabold mb-3" style="color: var(--color-accent-200);">
+              {item.step}
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Types of Ampliaciones -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">Tipos de ampliaciones que construimos</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          'Dormitorios y baños',
+          'Living y comedor',
+          'Cocinas ampliadas',
+          'Segundos pisos',
+          'Oficinas en casa',
+          'Bodegas y talleres',
+        ].map((tipo) => (
+          <div class="flex items-center gap-3 p-4 rounded-xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium" style="color: var(--text-heading);">{tipo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de Proyectos -->
+  <ServiceProjects
+    category="ampliaciones"
+    sectionTitle="Ampliaciones que hemos construido"
+  />
+
+  <!-- CTA Banner -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-primary-600);">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white mb-4">
+        ¿Necesitas ampliar tu casa?
+      </h2>
+      <p class="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
+        Te entregamos una cotización detallada sin compromiso. Cuéntanos tu proyecto y te contactamos en menos de 24 horas.
+      </p>
+      <a href="#cotizar" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white rounded-lg font-semibold transition-all duration-200 hover:bg-accent-50 hover:-translate-y-0.5" style="color: var(--color-primary-700);">
+        Cotizar Mi Ampliación
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <div id="cotizar">
+    <Contact />
+  </div>
+</Layout>

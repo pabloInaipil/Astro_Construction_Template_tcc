@@ -1,0 +1,169 @@
+---
+// src/pages/piscinas.astro
+// Landing page dedicada — Servicio de Piscinas
+// Optimizada para Google Ads: keywords específicas, H1 enfocado, contenido relevante.
+
+import Layout from '@layouts/Layout.astro';
+import ServiceHero from '@components/ServiceHero.astro';
+import ServiceProjects from '@components/ServiceProjects.astro';
+import Contact from '@components/Contact.astro';
+
+const features = [
+  {
+    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+    title: 'Hormigón Proyectado',
+    description: 'Construcción con hormigón proyectado y malla de acero para máxima resistencia y durabilidad de la estructura.',
+  },
+  {
+    icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+    title: 'Iluminación Subacuática',
+    description: 'Sistemas LED de bajo consumo integrados en la piscina para crear ambientes únicos de noche.',
+  },
+  {
+    icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+    title: 'Filtración Eficiente',
+    description: 'Sistemas de filtración y tratamiento de agua de última generación para mantención mínima y agua cristalina.',
+  },
+  {
+    icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+    title: 'Deck y Entorno',
+    description: 'Deck perimetral de madera o porcelanato, paisajismo y equipamiento complementario para tu zona de piscina.',
+  },
+];
+
+const process = [
+  { step: '01', title: 'Visita Técnica', description: 'Evaluamos el terreno, estudio de suelo, accesos para maquinaria y definimos dimensiones y forma.' },
+  { step: '02', title: 'Diseño y Cotización', description: 'Planos de la piscina, sistema de filtración, revestimientos y presupuesto completo.' },
+  { step: '03', title: 'Construcción', description: 'Excavación, estructura, hormigón, instalaciones, revestimiento y deck con supervisión diaria.' },
+  { step: '04', title: 'Entrega', description: 'Piscina terminada, sistema de filtración funcionando, llenado y capacitación de mantención.' },
+];
+---
+
+<Layout
+  title="Construcción de Piscinas en Santiago — TodoCasa Construcciones"
+  description="Construcción de piscinas de hormigón en Santiago. Revestimiento en palmeta, iluminación LED, deck perimetral. Terminaciones de alto estándar. Cotiza gratis."
+>
+  <ServiceHero
+    title="Construcción de Piscinas"
+    subtitle="Piscinas de hormigón con terminaciones de alto estándar, iluminación subacuática y sistemas de filtración eficientes. Tu oasis en casa."
+    backgroundImage="/hero/slide-05.webp"
+  />
+
+  <!-- Intro Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Servicio
+        </span>
+        <h2 class="section-title mb-6">
+          La piscina que siempre soñaste, construida con garantía
+        </h2>
+        <p class="text-base leading-relaxed" style="color: var(--text-body);">
+          En <strong style="color: var(--text-heading);">TodoCasa Construcciones</strong> construimos piscinas 
+          de <strong style="color: var(--text-heading);">hormigón proyectado</strong> con los más altos estándares 
+          de calidad. Cada proyecto incluye estructura reforzada con malla de acero, revestimiento en palmeta cerámica 
+          antideslizante, sistema de filtración de última generación e iluminación LED subacuática. Desde piscinas 
+          residenciales hasta proyectos con jacuzzi y cascada integrada.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">¿Por qué construir tu piscina con nosotros?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature) => (
+          <div class="p-6 rounded-2xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: var(--color-accent-100);">
+              <svg class="w-6 h-6" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{feature.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--color-accent-600);">
+          Nuestro Proceso
+        </span>
+        <h2 class="section-title mb-4">De la idea a la realidad en 4 pasos</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {process.map((item) => (
+          <div class="relative reveal">
+            <div class="text-5xl font-heading font-extrabold mb-3" style="color: var(--color-accent-200);">
+              {item.step}
+            </div>
+            <h3 class="text-lg font-heading font-bold mb-2" style="color: var(--text-heading);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-muted);">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Types -->
+  <section class="py-16 lg:py-24" style="background-color: var(--bg-section-alt);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <h2 class="section-title mb-4">Tipos de piscinas que construimos</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          'Piscina rectangular clásica',
+          'Piscina con forma libre',
+          'Piscina con jacuzzi integrado',
+          'Piscina con cascada decorativa',
+          'Piscina temperada',
+          'Piscina con borde infinito',
+        ].map((tipo) => (
+          <div class="flex items-center gap-3 p-4 rounded-xl reveal" style="background-color: var(--bg-card); border: 1px solid var(--border-default);">
+            <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-accent-600);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium" style="color: var(--text-heading);">{tipo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de Proyectos -->
+  <ServiceProjects
+    category="piscinas"
+    sectionTitle="Piscinas que hemos construido"
+  />
+
+  <!-- CTA Banner -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-primary-600);">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white mb-4">
+        ¿Quieres tu propia piscina?
+      </h2>
+      <p class="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
+        Te entregamos una cotización detallada sin compromiso. Cuéntanos tu proyecto y te contactamos en menos de 24 horas.
+      </p>
+      <a href="#cotizar" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white rounded-lg font-semibold transition-all duration-200 hover:bg-accent-50 hover:-translate-y-0.5" style="color: var(--color-primary-700);">
+        Cotizar Mi Piscina
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <div id="cotizar">
+    <Contact />
+  </div>
+</Layout>
