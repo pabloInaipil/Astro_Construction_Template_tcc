@@ -49,9 +49,9 @@ filtered.forEach((project, idx) => {
         >
           {/* Carousel */}
           <div class="carousel relative aspect-[4/3] overflow-hidden" tabindex="0" role="region" aria-label={`Carrusel: ${project.images[0].title}`}>
-            <div class="carousel-track flex overflow-x-auto snap-x snap-mandatory scroll-smooth" style="scrollbar-width: none;">
+            <div class="carousel-track flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth" style="scrollbar-width: none;">
               {project.images.map((img, imgIdx) => (
-                <div class="flex-shrink-0 w-full snap-center relative" data-index={imgIdx}>
+                <div class="flex-shrink-0 w-full h-full snap-center relative" data-index={imgIdx}>
                   <img
                     src={img.src}
                     alt={img.alt}
