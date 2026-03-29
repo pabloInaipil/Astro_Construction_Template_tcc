@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   // ⚠️ CAMBIAR A DOMINIO FINAL cuando se configure DNS:
-   site: 'https://mgiestructurasmetalicas.cl',
+   site: 'https://ravacorservicios.cl/',
 
   integrations: [
     sitemap(),
