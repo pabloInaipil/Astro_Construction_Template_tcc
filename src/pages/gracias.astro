@@ -1,6 +1,8 @@
 ---
 // src/pages/gracias.astro
 // Página de confirmación post-envío del formulario de contacto.
+// ⚠️ CRÍTICA PARA CONVERSIONES: Google Ads trackea esta URL como destino de conversión.
+// NO eliminar ni renombrar esta página.
 import Layout from '@layouts/Layout.astro';
 ---
 
@@ -29,12 +31,26 @@ import Layout from '@layouts/Layout.astro';
         <a href="/" class="btn-primary px-8 py-3">
           Volver al Inicio
         </a>
-        <a href="https://wa.me/56912345678?text=Hola,%20acabo%20de%20enviar%20una%20cotización%20por%20la%20web"
+        <a href="https://wa.me/56979055280?text=Hola,%20acabo%20de%20enviar%20una%20cotización%20por%20la%20web"
           target="_blank" rel="noopener"
-          class="btn-secondary px-8 py-3">
+          class="btn-secondary px-8 py-3"
+          data-gtm="whatsapp-gracias"
+          data-gtm-label="WhatsApp Gracias"
+        >
           Escribir por WhatsApp
         </a>
       </div>
     </div>
   </section>
+
+  <!-- GTM: Evento de conversión al cargar la página de gracias -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'form_conversion',
+      form_name: 'cotizacion',
+      page_type: 'thank_you',
+    });
+  </script>
 </Layout>
+

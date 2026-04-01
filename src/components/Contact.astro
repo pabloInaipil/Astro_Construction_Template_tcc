@@ -287,17 +287,19 @@ const WEB3FORMS_ACCESS_KEY = 'daea51ce-1637-4f61-9238-8df65ebae567';
       const result = await response.json();
 
       if (result.success) {
-        successMsg?.classList.remove('hidden');
-        form.reset();
-
-        // GTM: evento de conversión para Google Ads (IDÉNTICO al original)
+    // GTM: push evento ANTES del redirect para que GTM lo registre
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'form_submit',
           form_name: 'cotizacion',
           form_service: object['servicio'] || '',
-        });
-      } else {
+     });
+
+     // Redirect a página de gracias (conversión Google Ads)
+        window.location.href = '/gracias/';
+        return;
+      }
+       else {
         throw new Error(result.message || 'Form submission failed');
       }
     } catch (error) {
