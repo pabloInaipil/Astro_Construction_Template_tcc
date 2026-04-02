@@ -14,7 +14,7 @@ export const siteConfig = {
     'Construcción, ampliaciones, electricidad, gasfitería, estructuras metálicas e interiores. Mano de obra calificada en Temuco y Región de La Araucanía.',
 
   // ── URL ────────────────────────────────────────────────────
-  siteUrl: 'https://ravacorservicios.cl/',
+  siteUrl: 'https://ravacorservicios.cl',
 
   // ── Contacto ───────────────────────────────────────────────
   phone: '+56985153733',
@@ -102,27 +102,27 @@ export const siteConfig = {
   // ← CAMBIAR con fotos reales de RAVACOR
   heroSlides: [
     {
-      image: '/hero/slide-01.jpeg',
+      image: '/hero/slide-01.jpg',
       title: 'RAVACOR\nConstructora',
       subtitle: '«Construcción y servicios integrales para tu hogar»',
     },
     {
-      image: '/hero/slide-02.jpeg',
+      image: '/hero/slide-02.jpg',
       title: 'Ampliaciones',
       subtitle: '«Más espacio para tu familia, con la calidad de siempre»',
     },
     {
-      image: '/hero/slide-03.jpeg',
+      image: '/hero/slide-03.jpg',
       title: 'Electricidad',
       subtitle: '«Instalaciones seguras y certificadas»',
     },
     {
-      image: '/hero/slide-04.jpeg',
+      image: '/hero/slide-04.jpg',
       title: 'Gasfitería',
       subtitle: '«Soluciones profesionales en agua y gas»',
     },
     {
-      image: '/hero/slide-05.jpeg',
+      image: '/hero/slide-05.jpg',
       title: 'Interiores',
       subtitle: '«Renueva tus espacios con terminaciones de primer nivel»',
     },
@@ -160,9 +160,7 @@ export const siteConfig = {
 
 // ── Tipos exportados ─────────────────────────────────────────
 export type SiteConfig = typeof siteConfig;
-export type Service = (typeof 
-siteConfig.services
-)[number];
+export type Service = (typeof siteConfig.services)[number];
 export type Category = (typeof siteConfig.categories)[number];
 export type HeroSlide = (typeof siteConfig.heroSlides)[number];
-export type Stat = (typeof siteConfig.stats)[number]
+export type Stat = (typeof siteConfig.stats)[number];
