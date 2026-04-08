@@ -32,7 +32,7 @@ export const siteConfig = {
 
   // ── Redes sociales ─────────────────────────────────────────
   social: {
-    instagram: 'https://www.instagram.com/ravaco_temuco',
+    instagram: 'https://www.instagram.com/ravacor_temuco',
     facebook: '',  // ← AGREGAR cuando se tenga
   },
 
