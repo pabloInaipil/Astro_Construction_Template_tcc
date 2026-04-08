@@ -19,7 +19,7 @@ export const siteConfig = {
   // ── Contacto ───────────────────────────────────────────────
   phone: '+56985153733',
   phoneDisplay: '+56 9 8515 3733',
-  email: 'ravacorservicios@gmail.com',
+  email: 'ravacor@gmail.com',
   whatsapp: '56985153733',
   whatsappMessage: 'Hola, me interesa cotizar un proyecto con RAVACOR',
 
