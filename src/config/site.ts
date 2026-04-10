@@ -7,7 +7,7 @@
 
 export const siteConfig = {
   // ── Identidad ──────────────────────────────────────────────
-  name: 'RAVACOR Constructora Ltda.',
+  name: 'RAVACOR Servicios Ltda.',
   shortName: 'RAVACOR',
   tagline: 'Construcción, Electricidad, Gasfitería e Interiores',
   description:
