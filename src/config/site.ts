@@ -102,27 +102,27 @@ export const siteConfig = {
   // ← CAMBIAR con fotos reales de RAVACOR
   heroSlides: [
     {
-      image: '/hero/slide-01.jpg',
+      image: '/hero/slide-01.webp',
       title: 'RAVACOR\nConstructora',
       subtitle: '«Construcción y servicios integrales para tu hogar»',
     },
     {
-      image: '/hero/slide-02.jpg',
+      image: '/hero/slide-02.webp',
       title: 'Ampliaciones',
       subtitle: '«Más espacio para tu familia, con la calidad de siempre»',
     },
     {
-      image: '/hero/slide-03.jpg',
+      image: '/hero/slide-03.webp',
       title: 'Electricidad',
       subtitle: '«Instalaciones seguras y certificadas»',
     },
     {
-      image: '/hero/slide-04.jpg',
+      image: '/hero/slide-04.webp',
       title: 'Gasfitería',
       subtitle: '«Soluciones profesionales en agua y gas»',
     },
     {
-      image: '/hero/slide-05.jpg',
+      image: '/hero/slide-05.webp',
       title: 'Interiores',
       subtitle: '«Renueva tus espacios con terminaciones de primer nivel»',
     },
