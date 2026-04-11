@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mgiestructurasmetalicas.cl/sitemap-index.xml
+Sitemap: https://ravacorservicios.cl/sitemap-index.xml

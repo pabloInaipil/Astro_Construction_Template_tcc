@@ -1,8 +1,8 @@
 {
-  "name": "mgi-estructuras-metalicas",
+  "name": "ravacor-servicios",
   "type": "module",
   "version": "1.0.0",
-  "description": "Landing page para MGI Estructuras Metálicas — Galpones, casas, rejas y portones.",
+  "description": "Landing page para RAVACOR Servicios Ltda...",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
