@@ -103,7 +103,7 @@ export const siteConfig = {
   heroSlides: [
     {
       image: '/hero/slide-01.webp',
-      title: 'RAVACOR\nConstructora',
+      title: 'RAVACOR\nServicios Ltda.',
       subtitle: '«Construcción y servicios integrales para tu hogar»',
     },
     {
