@@ -1,0 +1,211 @@
+:root.dark {
+  /* Tema oscuro — Tonos chocolate/marrón profundo */
+  --bg-body: #3D2117;
+  --bg-section-alt: #4A2718;
+  --bg-card: #5A3118;
+  --bg-card-hover: #4A2718;
+  --bg-nav: rgba(61, 33, 23, 0.92);
+
+  --text-heading: var(--color-surface-100);
+  --text-body: var(--color-surface-200);
+  --text-muted: var(--color-steel-400);
+  --text-inverse: var(--color-surface-950);
+
+  --border-default: var(--color-steel-800);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Tema claro-oscuro — Tonos chocolate más suaves y luminosos */
+  --bg-body: #6B3A2A;
+  --bg-section-alt: #7E4633;
+  --bg-card: #8F523C;
+  --bg-card-hover: #7E4633;
+  --bg-nav: rgba(107, 58, 42, 0.94);
+  
+  /* Colores de texto — ahora con más contraste */
+  --text-primary: #FFF2E6;
+  --text-secondary: #F0DCC8;
+  --text-muted: #D4B28C;
+  
+  /* Bordes y sombras — más definidos */
+  --border-color: #A76E4A;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+  /* Colores de acento — más vivos */
+  --accent: #E89B4A;
+  --accent-hover: #F0B06A;
+  --danger: #D9673A;
+  --success: #7BA85A;
+  
+  color-scheme: dark;
+}
+
+
+:root.dark {
+  /* Tema claro cálido — Tonos chocolate suave */
+  --bg-body: #A57254;
+  --bg-section-alt: #B88462;
+  --bg-card: #C69470;
+  --bg-card-hover: #B88462;
+  --bg-nav: rgba(165, 114, 84, 0.95);
+  
+  /* Colores de texto — ahora oscuros sobre fondo claro */
+  --text-primary: #2E1C12;
+  --text-secondary: #4A2E1E;
+  --text-muted: #6B4A34;
+  
+  /* Bordes y sombras */
+  --border-color: #DAB088;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  /* Colores de acento */
+  --accent: #C27D3A;
+  --accent-hover: #D48E4A;
+  --danger: #C25A3A;
+  --success: #6F8F4A;
+  
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Tema muy claro — tonos capuchino */
+  --bg-body: #C69C7A;
+  --bg-section-alt: #D2AE8E;
+  --bg-card: #DEBE9E;
+  --bg-card-hover: #D2AE8E;
+  --bg-nav: rgba(198, 156, 122, 0.96);
+  
+  --text-primary: #2A1A0E;
+  --text-secondary: #4A3320;
+  --text-muted: #73573C;
+  
+  --border-color: #ECD0B4;
+  --accent: #B8732A;
+  --accent-hover: #CC8840;
+  --danger: #B84A2A;
+  --success: #6B8C3A;
+  
+  color-scheme: dark;
+}
+
+
+----------------------------------------------------------------------------------
+
+
+:root.dark {
+  /* Chocolate Suave — fondo medio, textura elegante */
+  --bg-body: #7A4C34;
+  --bg-section-alt: #8B5A40;
+  --bg-card: #9C6A4C;
+  --bg-card-hover: #8B5A40;
+  --bg-nav: rgba(122, 76, 52, 0.96);
+  
+  --text-primary: #F7EDE2;
+  --text-secondary: #DCC8B0;
+  --text-muted: #B89A7A;
+  
+  --border-color: #B8845C;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+  --accent: #E8943A;
+  --accent-hover: #F0A852;
+  --danger: #D95C3A;
+  --success: #6B9E4A;
+  
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Café con Leche — punto medio ideal */
+  --bg-body: #966A4E;
+  --bg-section-alt: #A87A5C;
+  --bg-card: #BA8A6A;
+  --bg-card-hover: #A87A5C;
+  --bg-nav: rgba(150, 106, 78, 0.95);
+  
+  --text-primary: #FCF6EC;
+  --text-secondary: #E8D2B8;
+  --text-muted: #C8A882;
+  
+  --border-color: #CCA070;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  --accent: #E88A2A;
+  --accent-hover: #F09C42;
+  --danger: #CC502A;
+  --success: #5A8F3A;
+  
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Capuchino — claro, cremoso, acogedor */
+  --bg-body: #B88A64;
+  --bg-section-alt: #C69C7A;
+  --bg-card: #D4AE8E;
+  --bg-card-hover: #C69C7A;
+  --bg-nav: rgba(184, 138, 100, 0.96);
+  
+  --text-primary: #2E1C12;
+  --text-secondary: #4A3320;
+  --text-muted: #73573C;
+  
+  --border-color: #E8C8AA;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  --accent: #C47A2E;
+  --accent-hover: #D68C42;
+  --danger: #B84A2A;
+  --success: #6B8C3A;
+  
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Avellena — café grisáceo, neutro y moderno */
+  --bg-body: #9E8A72;
+  --bg-section-alt: #B09A80;
+  --bg-card: #C2AA8E;
+  --bg-card-hover: #B09A80;
+  --bg-nav: rgba(158, 138, 114, 0.95);
+  
+  --text-primary: #2A241C;
+  --text-secondary: #4A4034;
+  --text-muted: #7A6A54;
+  
+  --border-color: #D4C0A8;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  --accent: #A87A3A;
+  --accent-hover: #BA8C4A;
+  --danger: #B8583A;
+  --success: #5A8A4A;
+  
+  color-scheme: dark;
+}
+
+:root.dark {
+  /* Mantequilla tostada — muy claro, cálido, relajante */
+  --bg-body: #D2B48C;
+  --bg-section-alt: #DEC69E;
+  --bg-card: #EAD8B0;
+  --bg-card-hover: #DEC69E;
+  --bg-nav: rgba(210, 180, 140, 0.96);
+  
+  --text-primary: #2A1C0E;
+  --text-secondary: #4A3820;
+  --text-muted: #7A5C3C;
+  
+  --border-color: #F0E4C8;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  
+  --accent: #B87A2A;
+  --accent-hover: #CC8C3A;
+  --danger: #B84A2A;
+  --success: #5A8C3A;
+  
+  color-scheme: dark;
+}

@@ -113,23 +113,31 @@
 }
 
 :root.dark {
-  /* Tema oscuro — Tonos chocolate/marrón profundo */
-  --bg-body: #3D2117;
-  --bg-section-alt: #4A2718;
-  --bg-card: #5A3118;
-  --bg-card-hover: #4A2718;
-  --bg-nav: rgba(61, 33, 23, 0.92);
+  /* Avellena — café grisáceo, neutro y moderno */
+  --bg-body: #9E8A72;
+  --bg-section-alt: #B09A80;
+  --bg-card: #C2AA8E;
+  --bg-card-hover: #B09A80;
+  --bg-nav: rgba(158, 138, 114, 0.95);
+  
+  --text-primary: #2A241C;
+  --text-secondary: #4A4034;
+  --text-muted: #f6f6f6;
+  
+  --border-color: #D4C0A8;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  --accent: #A87A3A;
+  --accent-hover: #BA8C4A;
+  --danger: #B8583A;
+  --success: #5A8A4A;
 
-  --text-heading: var(--color-surface-100);
-  --text-body: var(--color-surface-200);
-  --text-muted: var(--color-steel-400);
-  --text-inverse: var(--color-surface-950);
-
-  --border-default: var(--color-steel-800);
-  --border-subtle: rgba(255, 255, 255, 0.06);
-
+  --color-steel-700: #ffffff;
+  
   color-scheme: dark;
 }
+
+
 
 /* ============================================
    Estilos base
