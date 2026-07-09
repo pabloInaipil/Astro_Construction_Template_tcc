@@ -40,4 +40,20 @@ const { whatsapp, whatsappMessage, name } = siteConfig;
       </div>
     </div>
   </section>
+
+  <script>
+    // GTM conversion event — fires once per successful form submission,
+    // since Web3Forms redirects here only after a valid POST.
+    declare global {
+      interface Window {
+        dataLayer: Record<string, unknown>[];
+      }
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'form_conversion',
+      form_name: 'cotizacion',
+    });
+  </script>
 </Layout>

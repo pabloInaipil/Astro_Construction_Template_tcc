@@ -39,6 +39,9 @@ export const siteConfig = {
   // ── Google Tag Manager ─────────────────────────────────────
   gtmId: '',  // ← AGREGAR cuando se configure
 
+  // ── Web3Forms ──────────────────────────────────────────────
+  web3formsKey: '08877db4-3352-4241-819b-36e8cdb8d6df',
+
   // ── Servicios ──────────────────────────────────────────────
   services: [
     {
