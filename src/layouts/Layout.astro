@@ -118,6 +118,11 @@ const jsonLd = {
     <!-- Fuentes self-hosted (@font-face en global.css) — preload solo la del titular del hero -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-latin.woff2" crossorigin />
 
+    <!-- Preload del LCP (background-image del hero slider, solo en home) -->
+    {Astro.url.pathname === '/' && (
+      <link rel="preload" as="image" href="/hero/slide-01.webp" fetchpriority="high" />
+    )}
+
     <!-- Theme initialization (prevent FOUC) -->
     <script is:inline>
       (function () {
@@ -157,7 +162,7 @@ const jsonLd = {
           <!-- Logo -->
           <a href="/" class="flex items-center gap-3 group" aria-label="TodoCasa — Inicio">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="TodoCasa Construcciones"
             width="40"
             height="40"
