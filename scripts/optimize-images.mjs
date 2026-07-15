@@ -7,17 +7,19 @@ import sharp from 'sharp';
 import { readFile, writeFile } from 'node:fs/promises';
 
 // [archivo, ancho objetivo, calidad webp]
+// OJO: correr siempre partiendo de los originales (git checkout -- <archivo>
+// si ya fueron optimizados) para evitar doble compresión.
 const targets = [
-  // Hero slides: 1920px → 1600px, recomprimidas (el LCP es slide-01)
-  ['public/hero/slide-01.webp', 1600, 70],
+  // Hero slides (el LCP es slide-01: más chico y q más baja porque comprime mal)
+  ['public/hero/slide-01.webp', 1440, 68],
   ['public/hero/slide-02.webp', 1600, 70],
   ['public/hero/slide-03.webp', 1600, 70],
   ['public/hero/slide-04.webp', 1600, 70],
   ['public/hero/slide-05.webp', 1600, 70],
   // Galería ampliaciones: a tamaño real de display según PageSpeed
-  ['public/proyectos/ampliaciones/ampliaciones.webp', 662, 72],
+  ['public/proyectos/ampliaciones/ampliaciones.webp', 662, 65],
   ['public/proyectos/ampliaciones/ampliaciones2.webp', 662, 72],
-  ['public/proyectos/ampliaciones/ampliaciones3.webp', 662, 72],
+  ['public/proyectos/ampliaciones/ampliaciones3.webp', 662, 65],
 ];
 
 for (const [file, width, quality] of targets) {

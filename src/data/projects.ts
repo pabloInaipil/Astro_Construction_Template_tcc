@@ -42,8 +42,8 @@ export const projects: Project[] = [
     images: [
       {
         src: '/proyectos/ampliaciones/ampliaciones.webp',
-        width: 720,
-        height: 960,
+        width: 662,
+        height: 883,
         alt: 'Ampliación terraza techada',
         title: 'Construcción de Terraza Techada',
         description: 'Estructura metálica negra con cubierta de policarbonato translúcido, revestimiento de muro en piedra, piso cerámico tipo madera e iluminación colgante.',
@@ -51,8 +51,8 @@ export const projects: Project[] = [
       },
       {
         src: '/proyectos/ampliaciones/ampliaciones2.webp',
-        width: 900,
-        height: 506,
+        width: 662,
+        height: 372,
         alt: 'Ampliación avance de obra',
         title: 'Avance de Obra — Terminaciones de Terraza',
         description: 'Etapa final de ampliación exterior. Contempla instalación de piso cerámico, revestimiento texturizado en pilares y cielo falso con iluminación LED empotrada.',
@@ -83,8 +83,8 @@ export const projects: Project[] = [
     images: [
       {
         src: '/proyectos/ampliaciones/ampliaciones3.webp',
-        width: 745,
-        height: 720,
+        width: 662,
+        height: 640,
         alt: 'Estructura metálica ampliación',
         title: 'Sistema Constructivo Metalcom',
         description: 'Visualización arquitectónica que demuestra nuestro sistema de construcción. A la izquierda, la sólida estructura de perfiles de acero galvanizado; a la derecha, el proyecto terminado con aislación y revestimientos exteriores de alto estándar (imagen referencial).',
