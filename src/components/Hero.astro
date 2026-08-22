@@ -6,6 +6,8 @@
 //
 // FIX v3: Imágenes como background-image inline en cada slide.
 //         background-size:cover garantiza cobertura total sin franjas.
+// FIX v4: Tipografía — Black Ops One (título, stencil industrial) +
+//         Space Grotesk (subtítulo, alineado a la fuente principal del sitio).
 
 import { siteConfig } from '@config/site';
 
@@ -173,12 +175,12 @@ const heroVideo = '';
 
   /* ===== Tipografía Hero — MOBILE FIRST ===== */
   .hero-title {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    font-size: clamp(2rem, 4vw, 7rem);
+    font-family: 'Black Ops One', system-ui, sans-serif;
+    font-size: clamp(1.8rem, 3.6vw, 6.5rem);
     font-weight: 400;
     color: white;
-    line-height: 1.05;
-    letter-spacing: 0.04em;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
     margin-bottom: 1rem;
@@ -190,11 +192,12 @@ const heroVideo = '';
   }
 
   .hero-subtitle {
-    font-family: var(--font-sans);
+    font-family: 'Space Grotesk', var(--font-sans), system-ui, sans-serif;
     font-size: clamp(0.85rem, 1.8vw, 1.2rem);
-    color: rgba(255, 255, 255, 0.8);
-    font-style: italic;
-    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: normal;
+    letter-spacing: 0.01em;
     margin-bottom: 2rem;
     padding: 0 1rem;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
